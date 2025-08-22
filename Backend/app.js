@@ -11,18 +11,13 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
-// Test Routes
-app.get("/", (req, res) => {
-  res.status(200).json("Hi, I'm root");
-});
-
-app.get("/test", async (req, res) => {
+// Home Route
+app.get("/", async (req, res) => {
   try {
-    const samplePost = new Post({ content: "Hello World!" });
-    const savedPost = await samplePost.save();
-    res.status(201).json({ message: "Post created", post: savedPost });
+    const allPosts = await Post.find({});
+    res.status(200).json({ success: true, data: allPosts });
   } catch (err) {
-    res.status(500).json({ error: "Something went wrong" });
+    res.status(500).json({ error: "Failed to fetch posts" });
   }
 });
 
