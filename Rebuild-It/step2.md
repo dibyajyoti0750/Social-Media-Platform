@@ -26,11 +26,24 @@ export default function App() {
 }
 ```
 
+app.js
+
+```js
+// Home Route
+app.get("/", async (req, res) => {
+  try {
+    const allPosts = await Post.find({});
+    res.status(200).json({ success: true, data: allPosts });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch posts" });
+  }
+});
+```
+
 Home.jsx
 
 ```jsx
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Home.css";
 
 export default function Home() {
@@ -54,8 +67,10 @@ export default function Home() {
     <div>
       {posts.map((post, idx) => (
         <div key={idx}>
-          <p>{post.content}</p>
-          <img src={post.image} alt="post_image" />
+          <p>
+            {idx}. {post.content}
+          </p>
+          {post.image && <img src={post.image} alt="post_image" />}
         </div>
       ))}
     </div>
@@ -71,3 +86,16 @@ img {
   height: 5rem;
 }
 ```
+
+index.css
+
+```css
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import "tailwindcss";
+
+* {
+  font-family: "Inter", sans-serif;
+}
+```
+
+**Basic setup done, now on your own** 👍
