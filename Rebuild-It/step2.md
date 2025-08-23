@@ -90,4 +90,37 @@ index.css
 }
 ```
 
+Context.jsx
+
+```jsx
+import { createContext, useState } from "react";
+
+export const MyContext = createContext();
+
+export const MyProvider = ({ children }) => {
+  const [count, setCount] = useState(0);
+
+  const contextValue = { count, setCount };
+
+  return (
+    <MyContext.Provider value={contextValue}>{children}</MyContext.Provider>
+  );
+};
+```
+
+main.jsx
+
+```jsx
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { MyProvider } from "./Context.jsx";
+
+createRoot(document.getElementById("root")).render(
+  <MyProvider>
+    <App />
+  </MyProvider>
+);
+```
+
 **Basic setup done, now on your own** 👍
