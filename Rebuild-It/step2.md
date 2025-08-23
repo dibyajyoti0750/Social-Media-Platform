@@ -44,7 +44,6 @@ Home.jsx
 
 ```jsx
 import { useEffect, useState } from "react";
-import "./Home.css";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -70,20 +69,13 @@ export default function Home() {
           <p>
             {idx}. {post.content}
           </p>
-          {post.image && <img src={post.image} alt="post_image" />}
+          {post.image && (
+            <img className="h-50" src={post.image} alt="post_image" />
+          )}
         </div>
       ))}
     </div>
   );
-}
-```
-
-Home.css
-
-```css
-img {
-  width: 5rem;
-  height: 5rem;
 }
 ```
 
