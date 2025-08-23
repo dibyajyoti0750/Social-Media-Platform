@@ -1,1 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
+
+* {
+  font-family: "Inter", sans-serif;
+}
+
+.sidebar a img {
+  @apply h-8;
+}
+
+.sidebar a {
+  @apply flex items-center gap-2 font-semibold p-3 rounded-xl hover:bg-gray-200;
+}
+
+aside .navRightIcons {
+  @apply w-10 h-10 flex items-center justify-center bg-gray-200 rounded-full;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
