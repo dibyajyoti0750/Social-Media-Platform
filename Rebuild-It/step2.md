@@ -40,17 +40,24 @@ app.get("/", async (req, res) => {
 });
 ```
 
+Frontend/.env
+
+```env
+VITE_API_BASE_URL=http://localhost:8080/
+```
+
 Home.jsx
 
 ```jsx
 import { useEffect, useState } from "react";
 
 export default function Home() {
+  const API = import.meta.env.VITE_API_BASE_URL;
   const [posts, setPosts] = useState([]);
 
   const fetchAllPosts = async () => {
     try {
-      const response = await fetch("http://localhost:8080/");
+      const response = await fetch(API);
       const data = await response.json();
       setPosts(data.data);
     } catch (err) {
