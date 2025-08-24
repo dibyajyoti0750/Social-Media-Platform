@@ -4,9 +4,10 @@ import logo from "./logo.png";
 import user from "./user.png";
 import circle from "./circle.png";
 import friends from "./users.png";
+import memories from "./history.png";
 import saved from "./bookmark.png";
 import groups from "./group.png";
-import video from "./footage.png";
+import video from "./video.png";
 import market from "./store.png";
 import feeds from "./feed.png";
 import events from "./event.png";
@@ -18,6 +19,7 @@ export const assets = {
   user,
   circle,
   friends,
+  memories,
   saved,
   groups,
   video,

@@ -1,48 +1,36 @@
 import { assets } from "../assets/assets.js";
 
+const sidebarLinks = [
+  { icon: assets.chad, label: "Adonis Chad" },
+  { icon: assets.circle, label: "Glowup AI" },
+  { icon: assets.friends, label: "Friends" },
+  { icon: assets.memories, label: "Memories" },
+  { icon: assets.saved, label: "Saved" },
+  { icon: assets.groups, label: "Groups" },
+  { icon: assets.video, label: "Video" },
+  { icon: assets.market, label: "Market" },
+  { icon: assets.feeds, label: "Feeds" },
+  { icon: assets.events, label: "Events" },
+  { icon: assets.down, label: "See more" },
+];
+
 export default function Sidebar() {
   return (
-    <div className="sidebar flex flex-col gap-2 h-auto">
-      <a href="#">
-        <img className="rounded-full" src={assets.chad} alt="user" /> Adonis
-        Chad
-      </a>
-
-      <a href="#">
-        <img src={assets.circle} alt="ai_circle" /> Glowup AI
-      </a>
-
-      <a href="#">
-        <img src={assets.friends} alt="friends" /> Friends
-      </a>
-
-      <a href="#">
-        <img src={assets.saved} alt="saved" /> Saved
-      </a>
-
-      <a href="#">
-        <img src={assets.groups} alt="groups" /> Groups
-      </a>
-
-      <a href="#">
-        <img src={assets.video} alt="video" /> Video
-      </a>
-
-      <a href="#">
-        <img src={assets.market} alt="market" /> Market
-      </a>
-
-      <a href="#">
-        <img src={assets.feeds} alt="feeds" /> Feeds
-      </a>
-
-      <a href="#">
-        <img src={assets.events} alt="events" /> Events
-      </a>
-
-      <a href="#">
-        <img src={assets.down} alt="see_more" /> See more
-      </a>
+    <div className="flex flex-col gap-2 h-dvh overflow-y-auto p-2">
+      {sidebarLinks.map((item, idx) => (
+        <a
+          key={idx}
+          href="#"
+          className="flex items-center gap-2 p-3 font-semibold rounded-xl hover:bg-gray-200"
+        >
+          <img
+            src={item.icon}
+            alt={item.label}
+            className={`h-8 ${idx === 0 ? "rounded-full" : ""}`}
+          />
+          <span>{item.label}</span>
+        </a>
+      ))}
     </div>
   );
 }

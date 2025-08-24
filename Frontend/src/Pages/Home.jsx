@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PostCard from "../Components/PostCard";
 
 export default function Home() {
   const API = import.meta.env.VITE_API_BASE_URL;
@@ -21,14 +22,12 @@ export default function Home() {
   return (
     <div>
       {posts.map((post, idx) => (
-        <div key={idx} className="">
-          <p>
-            {idx}. {post.content}
-          </p>
-          {post.image && (
-            <img className="h-50" src={post.image} alt="post_image" />
-          )}
-        </div>
+        <PostCard
+          key={idx}
+          content={post.content}
+          image={post.image}
+          createdAt={post.createdAt}
+        />
       ))}
     </div>
   );
