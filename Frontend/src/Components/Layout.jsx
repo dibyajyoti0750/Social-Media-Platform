@@ -12,8 +12,10 @@ export default function Layout() {
         <Sidebar />
       </aside>
 
-      <main className="col-span-6 p-4 overflow-y-auto scrollbar-hide">
-        <Home />
+      <main className="col-span-6 p-4 overflow-y-auto scrollbar-hide flex flex-col items-center">
+        <div className="w-full max-w-2xl">
+          <Home />
+        </div>
       </main>
 
       <aside className="col-span-3 p-4 overflow-hidden">

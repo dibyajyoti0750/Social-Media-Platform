@@ -16,7 +16,7 @@ export default function ShowPost({
   return (
     <div className="grid grid-cols-12 h-screen">
       {/* Left */}
-      <div className="col-span-8 bg-black flex items-center">
+      <div className="col-span-8 bg-black flex items-center justify-center h-screen">
         <img
           src={image}
           loading="lazy"
