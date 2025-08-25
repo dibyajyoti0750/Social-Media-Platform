@@ -1,10 +1,13 @@
 import Home from "../Pages/Home";
 import Sidebar from "./Sidebar";
 import Message from "./Message";
+import Navbar from "./Navbar";
 
 export default function Layout() {
   return (
     <div className="grid grid-cols-12 gap-2 h-screen bg-gray-50 pt-[4rem]">
+      <Navbar />
+
       <aside className="col-span-3 p-4 overflow-hidden">
         <Sidebar />
       </aside>

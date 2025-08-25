@@ -1,12 +1,14 @@
+import { Route, Routes } from "react-router-dom";
 import Layout from "./Components/Layout";
-import Navbar from "./Components/Navbar";
-import Home from "./Pages/Home";
+import ShowPage from "./Pages/ShowPage";
 
 export default function App() {
   return (
     <div>
-      <Navbar />
-      <Layout />
+      <Routes>
+        <Route path="/" element={<Layout />} />
+        <Route path="/post/:id" element={<ShowPage />} />
+      </Routes>
     </div>
   );
 }
