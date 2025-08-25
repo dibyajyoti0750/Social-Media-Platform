@@ -21,6 +21,22 @@ app.get("/", async (req, res) => {
   }
 });
 
+// Show Route
+app.get("/post/:id", async (req, res) => {
+  let { id } = req.params;
+  try {
+    const post = await Post.findById(id);
+
+    if (!post) {
+      return res.status(404).json({ success: false, error: "Post not found" });
+    }
+
+    res.status(200).json({ success: true, data: post });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Failed to fetch post" });
+  }
+});
+
 // Server starter
 const startServer = async () => {
   try {
