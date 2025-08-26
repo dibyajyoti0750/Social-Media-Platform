@@ -38,7 +38,7 @@ export default function PostCard({
 
       {/* Footer */}
       <Reactions likes={likes} comments={comments} shares={shares} />
-      <hr className="mx-4 text-center text-gray-200" />
+      <hr className="border-gray-200 mx-4" />
       <Actions />
     </div>
   );

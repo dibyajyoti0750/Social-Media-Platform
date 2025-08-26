@@ -1,7 +1,7 @@
 import { assets } from "../assets/assets.js";
 
 const sidebarLinks = [
-  { icon: assets.chad, label: "Adonis Chad" },
+  { icon: assets.user, label: "Adonis Chad" },
   { icon: assets.circle, label: "Glowup AI" },
   { icon: assets.friends, label: "Friends" },
   { icon: assets.memories, label: "Memories" },
@@ -14,7 +14,7 @@ const sidebarLinks = [
   { icon: assets.down, label: "See more" },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ profilePic }) {
   return (
     <div className="flex flex-col gap-2 h-dvh overflow-y-auto p-2">
       {sidebarLinks.map((item, idx) => (
@@ -24,9 +24,11 @@ export default function Sidebar() {
           className="flex items-center gap-2 p-3 font-semibold rounded-xl hover:bg-gray-200"
         >
           <img
-            src={item.icon}
-            alt={item.label}
-            className={`h-8 ${idx === 0 ? "rounded-full" : ""}`}
+            src={profilePic || item.icon}
+            alt="Profile picture"
+            className={`h-8 w-8 object-cover ${
+              idx === 0 ? "rounded-full" : ""
+            }`}
           />
           <span>{item.label}</span>
         </a>

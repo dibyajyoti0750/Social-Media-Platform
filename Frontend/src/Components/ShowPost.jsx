@@ -41,9 +41,9 @@ export default function ShowPost({
           <div className="py-3 px-4">{content}</div>
 
           <Reactions />
-          <hr className="mx-4 text-center text-gray-200" />
+          <hr className="border-gray-200 mx-4" />
           <Actions />
-          <hr className="mx-4 text-center text-gray-200" />
+          <hr className="border-gray-200 mx-4" />
         </div>
       </div>
     </div>

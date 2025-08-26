@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PostCard from "../Components/PostCard";
+import CreatePost from "../Components/CreatePost";
 
 export default function Home() {
   const API = import.meta.env.VITE_API_BASE_URL;
@@ -21,6 +22,8 @@ export default function Home() {
 
   return (
     <div>
+      <CreatePost />
+
       {posts.map((post, idx) => (
         <PostCard
           key={idx}
