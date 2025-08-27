@@ -14,7 +14,7 @@ app.use(cors());
 // Home Route
 app.get("/", async (req, res) => {
   try {
-    const allPosts = await Post.find({});
+    const allPosts = await Post.find({}).sort("-createdAt");
     res.status(200).json({ success: true, data: allPosts });
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch posts" });

@@ -1,6 +1,10 @@
 export const postData = [
   {
     content:
+      "Some people dream of success. I dream of semicolons behaving properly.",
+  },
+  {
+    content:
       "Just had the best coffee of my life ☕✨ Anyone else addicted to cold brew?",
     image:
       "https://images.pexels.com/photos/33481815/pexels-photo-33481815.jpeg",
@@ -38,9 +42,5 @@ export const postData = [
     content:
       "Late night thoughts 💭 Do you think AI will replace coding someday?",
     image: "https://images.pexels.com/photos/5473312/pexels-photo-5473312.jpeg",
-  },
-  {
-    content:
-      "Some people dream of success. I dream of semicolons behaving properly.",
   },
 ];
