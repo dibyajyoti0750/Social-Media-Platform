@@ -37,6 +37,26 @@ app.get("/post/:id", async (req, res) => {
   }
 });
 
+// Create route
+app.post("/post", async (req, res) => {
+  try {
+    const newPost = new Post(req.body);
+    const savedPost = await newPost.save();
+
+    res.status(201).json({
+      success: true,
+      message: "New post saved",
+      data: savedPost,
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: "Failed to save post",
+      error: err.message,
+    });
+  }
+});
+
 // Server starter
 const startServer = async () => {
   try {
