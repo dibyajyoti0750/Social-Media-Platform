@@ -7,7 +7,6 @@ export default function ShowPage() {
   const API = import.meta.env.VITE_API_BASE_URL;
 
   const [post, setPost] = useState(null);
-  console.log(post);
 
   const fetchPost = async () => {
     try {
@@ -28,6 +27,7 @@ export default function ShowPage() {
   return (
     <>
       <ShowPost
+        postId={id}
         content={post.content}
         image={post.image}
         createdAt={post.createdAt}

@@ -13,7 +13,7 @@ export default function Home() {
       {posts.map((post, idx) => (
         <PostCard
           key={idx}
-          id={post._id}
+          postId={post._id}
           content={post.content}
           image={post.image}
           createdAt={post.createdAt}
