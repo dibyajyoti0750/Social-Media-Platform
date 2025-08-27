@@ -4,6 +4,7 @@ import Reactions from "./Reactions";
 import Actions from "./Actions";
 
 export default function ShowPost({
+  postId,
   profilePic,
   userName,
   content,
@@ -33,6 +34,7 @@ export default function ShowPost({
 
         <div>
           <PostHeader
+            postId={postId}
             userName={userName}
             profilePic={profilePic}
             createdAt={createdAt}
