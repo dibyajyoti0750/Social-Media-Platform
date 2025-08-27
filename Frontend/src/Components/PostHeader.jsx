@@ -1,9 +1,18 @@
+import { useState } from "react";
 import { assets } from "../assets/assets";
 import { timeAgo } from "../utils.js";
+import DropDownMenu from "./DropDownMenu.jsx";
 
-export default function PostHeader({ userName, profilePic, createdAt }) {
+export default function PostHeader({
+  postId,
+  userName,
+  profilePic,
+  createdAt,
+}) {
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+
   return (
-    <div className="flex justify-between items-center pt-4 px-4">
+    <div className="relative flex justify-between items-center pt-4 px-4">
       <div className="flex items-center gap-4">
         <a href="#">
           <img
@@ -22,9 +31,19 @@ export default function PostHeader({ userName, profilePic, createdAt }) {
         </div>
       </div>
 
-      <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-200 rounded-full cursor-pointer">
+      <button
+        onClick={() => setIsDropDownOpen(!isDropDownOpen)}
+        className="w-8 h-8 flex items-center justify-center hover:bg-gray-200 rounded-full cursor-pointer"
+      >
         <i className="fas fa-ellipsis"></i>
       </button>
+
+      {isDropDownOpen && (
+        <DropDownMenu
+          postId={postId}
+          onClose={() => setIsDropDownOpen(false)}
+        />
+      )}
     </div>
   );
 }

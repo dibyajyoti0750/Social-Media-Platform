@@ -20,11 +20,20 @@ export const MyProvider = ({ children }) => {
     setPosts((prev) => [newPost, ...prev]);
   };
 
+  const removePost = (id) => {
+    setPosts((prev) => prev.filter((post) => post._id != id));
+  };
+
   useEffect(() => {
     fetchAllPosts();
   }, []);
 
-  const contextValue = { posts, setPosts, addPost };
+  const contextValue = {
+    posts,
+    setPosts,
+    addPost,
+    removePost,
+  };
 
   return (
     <MyContext.Provider value={contextValue}>{children}</MyContext.Provider>
