@@ -1,21 +1,44 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { assets } from "../assets/assets";
+import { MyContext } from "../Context";
 
 export default function CreatePostModal({ onClose, userName, profilePic }) {
   const [content, setContent] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [showPhotoInput, setShowPhotoInput] = useState(false);
+  const [image, setImage] = useState("");
+  const [showImageInput, setShowImageInput] = useState(false);
+  const { addPost } = useContext(MyContext);
+  const API = import.meta.env.VITE_API_BASE_URL;
 
-  function handlePhotoClick() {
-    setShowPhotoInput((prev) => !prev);
+  function handleImageClick() {
+    setShowImageInput((prev) => !prev);
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(content, photo);
-    setContent("");
-    setPhoto("");
-    onClose();
+
+    const body = { content };
+    if (image) body.image = image;
+
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    };
+
+    try {
+      const response = await fetch(`${API}/post`, options);
+      const data = await response.json();
+      console.log(data);
+
+      if (data.success) {
+        setContent("");
+        setImage("");
+        addPost(data.data);
+        onClose();
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const textareaRef = useRef(null);
@@ -78,11 +101,12 @@ export default function CreatePostModal({ onClose, userName, profilePic }) {
             className="w-full min-h-[200px] resize-none p-2 outline-none text-xl placeholder:text-xl"
           />
 
-          {/* Temp photo upload */}
-          {showPhotoInput && (
+          {/* Temp Image upload */}
+          {showImageInput && (
             <input
-              value={photo}
-              onChange={(e) => setPhoto(e.target.value)}
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+              type="url"
               placeholder="paste image link here"
               className="outline-none border w-full p-2 rounded-lg mb-4"
             />
@@ -93,7 +117,7 @@ export default function CreatePostModal({ onClose, userName, profilePic }) {
             <div className="flex items-center gap-3">
               {icons.map((item, idx) => (
                 <i
-                  onClick={idx === 0 ? handlePhotoClick : undefined}
+                  onClick={idx === 0 ? handleImageClick : undefined}
                   key={idx}
                   className={`fas ${item.icon} ${item.color} text-xl cursor-pointer`}
                 ></i>

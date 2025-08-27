@@ -1,24 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import PostCard from "../Components/PostCard";
 import CreatePost from "../Components/CreatePost";
+import { MyContext } from "../Context";
 
 export default function Home() {
-  const API = import.meta.env.VITE_API_BASE_URL;
-  const [posts, setPosts] = useState([]);
-
-  const fetchAllPosts = async () => {
-    try {
-      const response = await fetch(API);
-      const data = await response.json();
-      setPosts(data.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchAllPosts();
-  }, []);
+  const { posts } = useContext(MyContext);
 
   return (
     <div>

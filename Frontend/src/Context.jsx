@@ -1,11 +1,30 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const MyContext = createContext();
 
 export const MyProvider = ({ children }) => {
-  const [count, setCount] = useState(0);
+  const API = import.meta.env.VITE_API_BASE_URL;
+  const [posts, setPosts] = useState([]);
 
-  const contextValue = { count, setCount };
+  const fetchAllPosts = async () => {
+    try {
+      const response = await fetch(API);
+      const data = await response.json();
+      setPosts(data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const addPost = (newPost) => {
+    setPosts((prev) => [newPost, ...prev]);
+  };
+
+  useEffect(() => {
+    fetchAllPosts();
+  }, []);
+
+  const contextValue = { posts, setPosts, addPost };
 
   return (
     <MyContext.Provider value={contextValue}>{children}</MyContext.Provider>
