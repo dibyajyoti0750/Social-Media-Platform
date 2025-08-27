@@ -57,6 +57,26 @@ app.post("/post", async (req, res) => {
   }
 });
 
+// Destroy route
+app.delete("/post/:id", async (req, res) => {
+  let { id } = req.params;
+  try {
+    const deletedPost = await Post.findByIdAndDelete(id);
+
+    res.status(200).json({
+      success: true,
+      message: "Post deleted successfully",
+      data: deletedPost,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Server error while deleting post",
+      error: err.message,
+    });
+  }
+});
+
 // Server starter
 const startServer = async () => {
   try {
