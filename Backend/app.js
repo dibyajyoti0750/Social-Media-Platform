@@ -57,6 +57,39 @@ app.post("/post", async (req, res) => {
   }
 });
 
+// Edit route
+app.patch("/post/:id", async (req, res) => {
+  const { id } = req.params;
+  const { content, image } = req.body;
+
+  const updates = {};
+  if (content !== undefined) updates.content = content;
+  if (image !== undefined) updates.image = image;
+
+  try {
+    const editedPost = await Post.findByIdAndUpdate(id, updates, { new: true });
+
+    if (!editedPost) {
+      return res.status(404).json({
+        success: false,
+        message: "Post not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Post edited successfully",
+      data: editedPost,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Server error while editing post",
+      error: err.message,
+    });
+  }
+});
+
 // Destroy route
 app.delete("/post/:id", async (req, res) => {
   let { id } = req.params;
