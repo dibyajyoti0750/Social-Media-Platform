@@ -41,7 +41,7 @@ export default function PostHeader({
       {isDropDownOpen && (
         <DropDownMenu
           postId={postId}
-          onClose={() => setIsDropDownOpen(false)}
+          closeDropDown={() => setIsDropDownOpen(false)}
         />
       )}
     </div>

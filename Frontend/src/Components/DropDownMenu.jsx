@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 import { MyContext } from "../Context";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
+import EditPostModal from "./EditPostModal";
 
-export default function DropDownMenu({ postId, onClose }) {
+export default function DropDownMenu({ postId, closeDropDown }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [openEditPost, setOpenEditPost] = useState(false);
   const { removePost } = useContext(MyContext);
 
   const API = import.meta.env.VITE_API_BASE_URL;
@@ -21,7 +23,7 @@ export default function DropDownMenu({ postId, onClose }) {
       if (data.success) {
         removePost(data.data._id);
         setConfirmDelete(false);
-        onClose();
+        closeDropDown();
       } else {
         // TODO: show error to user
         console.log(data.message);
@@ -35,7 +37,10 @@ export default function DropDownMenu({ postId, onClose }) {
     <div className="absolute top-14 right-2 w-60 px-2 py-3 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
       <div className="absolute -top-2 right-4 w-4 h-4 bg-white border-l border-t border-gray-200 rotate-45"></div>
 
-      <button className="flex items-center gap-2 p-2 w-full rounded-lg hover:bg-gray-100 cursor-pointer">
+      <button
+        onClick={() => setOpenEditPost(true)}
+        className="flex items-center gap-2 p-2 w-full rounded-lg hover:bg-gray-100 cursor-pointer"
+      >
         <i className="fas fa-pencil"></i>
         <span>Edit post</span>
       </button>
@@ -48,9 +53,17 @@ export default function DropDownMenu({ postId, onClose }) {
         <span>Delete post</span>
       </button>
 
+      {openEditPost && (
+        <EditPostModal
+          postId={postId}
+          closeEditModal={() => setOpenEditPost(false)}
+          closeDropDown={closeDropDown}
+        />
+      )}
+
       {confirmDelete && (
         <ConfirmDeleteModal
-          onCancel={() => setConfirmDelete(false)}
+          onCancelDelete={() => setConfirmDelete(false)}
           onAction={handleDelete}
         />
       )}
