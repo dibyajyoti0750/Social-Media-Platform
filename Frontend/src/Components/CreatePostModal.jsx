@@ -62,7 +62,7 @@ export default function CreatePostModal({ onClose, userName, profilePic }) {
       <div className="bg-white w-full max-w-lg p-4 rounded-xl shadow-lg">
         {/* Header */}
         <div className="mb-2 flex justify-between items-center">
-          <h2 className="text-xl font-bold text-center flex-1">Create Post</h2>
+          <h2 className="text-xl font-bold text-center flex-1">Create post</h2>
 
           <button
             onClick={onClose}
