@@ -1,4 +1,4 @@
-export default function ConfirmDeleteModal({ onCancel, onAction }) {
+export default function ConfirmDeleteModal({ onCancelDelete, onAction }) {
   return (
     <div className="fixed inset-0 flex justify-center items-center z-50 bg-black/50">
       <div className="flex flex-col w-full max-w-lg bg-white p-4 rounded-lg shadow-lg gap-2">
@@ -13,7 +13,7 @@ export default function ConfirmDeleteModal({ onCancel, onAction }) {
 
         <div className="flex justify-end gap-2 mt-2">
           <button
-            onClick={onCancel}
+            onClick={onCancelDelete}
             className="px-8 py-2 rounded-lg text-indigo-500 cursor-pointer hover:bg-gray-200"
           >
             Cancel
