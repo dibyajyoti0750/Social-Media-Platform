@@ -5,22 +5,27 @@ import Navbar from "./Navbar";
 
 export default function Layout() {
   return (
-    <div className="grid grid-cols-12 gap-2 h-screen bg-gray-50 pt-[4rem]">
+    <div className="flex justify-center bg-black pt-[4rem] h-screen">
       <Navbar />
 
-      <aside className="col-span-3 p-4 overflow-hidden">
-        <Sidebar />
-      </aside>
+      <div className="grid grid-cols-12 w-full max-w-7xl">
+        {/* Sidebar */}
+        <aside className="col-span-2 py-4 overflow-hidden">
+          <Sidebar />
+        </aside>
 
-      <main className="col-span-6 p-4 overflow-y-auto scrollbar-hide flex flex-col items-center">
-        <div className="w-full max-w-2xl">
-          <Home />
-        </div>
-      </main>
+        {/* Main Feed */}
+        <main className="col-span-6 overflow-y-auto scrollbar-hide flex flex-col items-center border-[1px] border-neutral-700">
+          <div className="w-full max-w-2xl">
+            <Home />
+          </div>
+        </main>
 
-      <aside className="col-span-3 p-4 overflow-hidden">
-        <Message />
-      </aside>
+        {/* Right Sidebar */}
+        <aside className="col-span-4 py-4 overflow-hidden">
+          <Message />
+        </aside>
+      </div>
     </div>
   );
 }

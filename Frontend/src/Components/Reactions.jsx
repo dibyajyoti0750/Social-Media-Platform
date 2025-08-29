@@ -9,15 +9,15 @@ export default function Reactions({ likes, comments, shares }) {
 
   return (
     <div className="flex justify-between items-center py-3 px-4">
-      <div>
-        <i className="fas fa-thumbs-up text-indigo-400"></i>
+      <div className="flex items-center text-sm">
+        <i className="fas fa-thumbs-up"></i>
         &nbsp;
         <span className="text-gray-500 font-light">
           {likes || randomStats.likes}
         </span>
       </div>
 
-      <div className="flex items-center gap-2 text-gray-500 font-light">
+      <div className="flex items-center gap-2 text-sm text-gray-500 font-light">
         <span>{comments || randomStats.comments} comments</span>
         <span>{shares || randomStats.shares} shares</span>
       </div>

@@ -12,7 +12,7 @@ export default function PostHeader({
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
   return (
-    <div className="relative flex justify-between items-center pt-4 px-4">
+    <div className="relative flex justify-between text-gray-100 items-center pt-4 px-4">
       <div className="flex items-center gap-4">
         <a href="#">
           <img
@@ -27,16 +27,16 @@ export default function PostHeader({
           <p>
             <a href="#">{userName || "Demo User"}</a>
           </p>
-          <span>{timeAgo(createdAt)}</span>
+          <span className="text-xs text-gray-400">{timeAgo(createdAt)}</span>
         </div>
       </div>
 
-      <button
+      <div
         onClick={() => setIsDropDownOpen(!isDropDownOpen)}
-        className="w-8 h-8 flex items-center justify-center hover:bg-gray-200 rounded-full cursor-pointer"
+        className="w-8 h-8 flex items-center justify-center hover:bg-zinc-800 rounded-full cursor-pointer"
       >
         <i className="fas fa-ellipsis"></i>
-      </button>
+      </div>
 
       {isDropDownOpen && (
         <DropDownMenu

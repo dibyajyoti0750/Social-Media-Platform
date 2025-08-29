@@ -26,11 +26,7 @@ export default function Navbar() {
       </div>
 
       {/* Right */}
-      <aside className="flex justify-end items-center gap-2 text-xl">
-        <button className="px-3 py-2 bg-gray-200 rounded-full text-sm cursor-pointer hover:bg-gray-300">
-          Find friends
-        </button>
-
+      <aside className="flex justify-end items-center gap-2">
         <NavIcons />
       </aside>
     </div>

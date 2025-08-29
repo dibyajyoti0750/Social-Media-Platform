@@ -1,37 +1,41 @@
 import { assets } from "../assets/assets.js";
 
-const sidebarLinks = [
-  { icon: assets.user, label: "Adonis Chad" },
-  { icon: assets.circle, label: "Glowup AI" },
-  { icon: assets.friends, label: "Friends" },
-  { icon: assets.memories, label: "Memories" },
-  { icon: assets.saved, label: "Saved" },
-  { icon: assets.groups, label: "Groups" },
-  { icon: assets.video, label: "Video" },
-  { icon: assets.market, label: "Market" },
-  { icon: assets.feeds, label: "Feeds" },
-  { icon: assets.events, label: "Events" },
-  { icon: assets.down, label: "See more" },
+import {
+  HomeIcon,
+  MagnifyingGlassIcon,
+  BellIcon,
+  ChatBubbleLeftEllipsisIcon,
+  UserIcon,
+  PencilSquareIcon,
+} from "@heroicons/react/24/outline";
+
+const sidebarLinksOutline = [
+  { icon: HomeIcon, title: "Home" },
+  { icon: assets.circle, title: "ChatBot" },
+  { icon: MagnifyingGlassIcon, title: "Explore" },
+  { icon: BellIcon, title: "Notifications" },
+  { icon: ChatBubbleLeftEllipsisIcon, title: "Message" },
+  { icon: UserIcon, title: "Profile" },
+  { icon: PencilSquareIcon, title: "Create" },
 ];
 
-export default function Sidebar({ profilePic }) {
+export default function Sidebar() {
   return (
-    <div className="flex flex-col gap-2 h-dvh overflow-y-auto p-2">
-      {sidebarLinks.map((item, idx) => (
-        <a
-          key={idx}
-          href="#"
-          className="flex items-center gap-2 p-3 font-semibold rounded-xl hover:bg-gray-200"
-        >
-          <img
-            src={profilePic || item.icon}
-            alt="Profile picture"
-            className={`h-8 w-8 object-cover ${
-              idx === 0 ? "rounded-full" : ""
-            }`}
-          />
-          <span>{item.label}</span>
-        </a>
+    <div className="flex flex-col items-center gap-4 lg:items-start h-dvh overflow-y-auto p-2 text-lg font-medium text-gray-400">
+      {sidebarLinksOutline.map(({ icon: Icon, title }) => (
+        <div key={title}>
+          <a
+            href="#"
+            className="flex items-center gap-3 p-2 hover:text-gray-50"
+          >
+            {title === "ChatBot" ? (
+              <img src={Icon} alt="AI ChatBot" className="h-8 w-8" />
+            ) : (
+              <Icon className="h-8 w-8" />
+            )}
+            <span className="hidden lg:inline">{title}</span>
+          </a>
+        </div>
       ))}
     </div>
   );

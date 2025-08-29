@@ -34,12 +34,12 @@ export default function DropDownMenu({ postId, closeDropDown }) {
   };
 
   return (
-    <div className="absolute top-14 right-2 w-60 px-2 py-3 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
-      <div className="absolute -top-2 right-4 w-4 h-4 bg-white border-l border-t border-gray-200 rotate-45"></div>
+    <div className="absolute top-14 right-2 w-60 px-2 py-3 bg-black border border-zinc-600 rounded-lg z-50">
+      <div className="absolute -top-2 right-4 w-4 h-4 bg-black border-l border-t border-zinc-600 rotate-45"></div>
 
       <button
         onClick={() => setOpenEditPost(true)}
-        className="flex items-center gap-2 p-2 w-full rounded-lg hover:bg-gray-100 cursor-pointer"
+        className="flex items-center gap-2 p-2 w-full rounded-lg hover:bg-zinc-800 cursor-pointer"
       >
         <i className="fas fa-pencil"></i>
         <span>Edit post</span>
@@ -47,7 +47,7 @@ export default function DropDownMenu({ postId, closeDropDown }) {
 
       <button
         onClick={() => setConfirmDelete(true)}
-        className="flex items-center gap-2 p-2 w-full rounded-lg hover:bg-gray-100 cursor-pointer"
+        className="flex items-center gap-2 p-2 w-full rounded-lg hover:bg-zinc-800 cursor-pointer"
       >
         <i className="fas fa-trash"></i>
         <span>Delete post</span>
