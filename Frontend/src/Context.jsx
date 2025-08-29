@@ -20,6 +20,12 @@ export const MyProvider = ({ children }) => {
     setPosts((prev) => [newPost, ...prev]);
   };
 
+  const updatePost = (updatedPost) => {
+    setPosts((prev) =>
+      prev.map((post) => (post._id === updatedPost._id ? updatedPost : post))
+    );
+  };
+
   const removePost = (id) => {
     setPosts((prev) => prev.filter((post) => post._id != id));
   };
@@ -32,6 +38,7 @@ export const MyProvider = ({ children }) => {
     posts,
     setPosts,
     addPost,
+    updatePost,
     removePost,
   };
 
