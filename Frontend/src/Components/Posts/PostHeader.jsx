@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { assets } from "../assets/assets";
-import { timeAgo } from "../utils.js";
-import DropDownMenu from "./DropDownMenu.jsx";
+import { assets } from "../../assets/assets.js";
+import { timeAgo } from "../../utils.js";
+import DropDownMenu from "../Common/DropDownMenu.jsx";
 
 export default function PostHeader({
   postId,

@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import PostCard from "../Components/PostCard";
-import CreatePost from "../Components/CreatePost";
-import { MyContext } from "../Context";
+import PostCard from "../Components/Posts/PostCard";
+import CreatePost from "../Components/Actions/CreatePost";
+import { MyContext } from "../context/MyContext";
 
 export default function Home() {
   const { posts } = useContext(MyContext);

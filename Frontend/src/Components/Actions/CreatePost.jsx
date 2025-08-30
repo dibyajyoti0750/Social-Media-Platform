@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CreatePostModal from "./CreatePostModal";
+import CreatePostModal from "../Common/CreatePostModal";
 import {
   UserCircleIcon,
   VideoCameraIcon,
@@ -39,7 +39,7 @@ export default function CreatePost() {
         <div>
           <button
             onClick={() => setIsModalOpen(true)}
-            class="bg-gray-300 hover:bg-gray-50 font-semibold rounded-full text-sm px-6 py-2 cursor-pointer"
+            className="bg-gray-300 hover:bg-gray-50 font-semibold rounded-full text-sm px-6 py-2 cursor-pointer"
           >
             Post
           </button>

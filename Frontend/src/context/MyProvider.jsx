@@ -1,6 +1,5 @@
-import { createContext, useEffect, useState } from "react";
-
-export const MyContext = createContext();
+import { useEffect, useState } from "react";
+import { MyContext } from "./MyContext";
 
 export const MyProvider = ({ children }) => {
   const API = import.meta.env.VITE_API_BASE_URL;

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import { MyContext } from "../Context";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import EditPostModal from "./EditPostModal";
+import { MyContext } from "../../context/MyContext";
 
 export default function DropDownMenu({ postId, closeDropDown }) {
   const [confirmDelete, setConfirmDelete] = useState(false);

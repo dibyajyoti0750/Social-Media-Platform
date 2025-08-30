@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import PostHeader from "./PostHeader.jsx";
-import Reactions from "./Reactions.jsx";
-import Actions from "./Actions.jsx";
+import Reactions from "../Common/Reactions.jsx";
+import Actions from "../Actions/Actions.jsx";
 
 export default function PostCard({
   postId,

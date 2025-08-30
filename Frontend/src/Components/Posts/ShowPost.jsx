@@ -1,7 +1,7 @@
-import NavIcons from "./NavIcons";
+import NavIcons from "../Layout/NavIcons";
 import PostHeader from "./PostHeader";
-import Reactions from "./Reactions";
-import Actions from "./Actions";
+import Reactions from "../Common/Reactions";
+import Actions from "../Actions/Actions";
 
 export default function ShowPost({
   postId,
@@ -42,7 +42,7 @@ export default function ShowPost({
 
           <div className="py-3 px-4">{content}</div>
 
-          <Reactions />
+          <Reactions likes={likes} comments={comments} shares={shares} />
           <hr className="border-gray-200 mx-4" />
           <Actions />
           <hr className="border-gray-200 mx-4" />

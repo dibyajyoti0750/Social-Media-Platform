@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { assets } from "../assets/assets";
-import { MyContext } from "../Context";
+import { assets } from "../../assets/assets";
+import { MyContext } from "../../context/MyContext";
 
 export default function CreatePostModal({ onClose, userName, profilePic }) {
   const [content, setContent] = useState("");

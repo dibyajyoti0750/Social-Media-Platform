@@ -1,6 +1,6 @@
-import Home from "../Pages/Home";
+import Home from "../../Pages/Home";
 import Sidebar from "./Sidebar";
-import Message from "./Message";
+import Message from "../Messages/Message";
 import Navbar from "./Navbar";
 
 export default function Layout() {

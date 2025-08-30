@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import ShowPost from "../Components/ShowPost";
+import ShowPost from "../Components/Posts/ShowPost";
 import { useEffect, useState } from "react";
 
 export default function ShowPage() {
