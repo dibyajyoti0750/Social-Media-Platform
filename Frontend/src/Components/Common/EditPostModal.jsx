@@ -50,21 +50,23 @@ export default function EditPostModal({
   }, [postId, post]);
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center z-50 bg-black/50">
-      <div className="bg-white w-full max-w-lg p-4 rounded-xl shadow-lg">
+    <div className="fixed inset-0 flex justify-center items-center z-50 bg-white/20 backdrop-blur-xs">
+      <div className="bg-neutral-900 w-full max-w-lg p-4 rounded-xl shadow-lg border border-neutral-800">
         {/* Header */}
         <div className="mb-2 flex justify-between items-center">
-          <h2 className="text-xl font-bold text-center flex-1">Edit post</h2>
+          <h2 className="text-xl font-bold text-center flex-1 text-white">
+            Edit post
+          </h2>
 
           <button
             onClick={closeEditModal}
-            className="w-10 h-10 flex justify-center items-center cursor-pointer rounded-full bg-gray-200 hover:bg-gray-300"
+            className="w-10 h-10 flex justify-center items-center cursor-pointer rounded-full bg-neutral-800 hover:bg-neutral-700"
           >
-            <i className="fas fa-xmark text-gray-500"></i>
+            <i className="fas fa-xmark text-gray-300"></i>
           </button>
         </div>
 
-        <hr className="border-gray-200" />
+        <hr className="border-neutral-700 my-2" />
 
         {/* User Info */}
         <div className="flex items-center gap-3 py-4">
@@ -75,8 +77,8 @@ export default function EditPostModal({
           />
 
           <div className="flex flex-col">
-            <p className="font-medium">{"Username"}</p>
-            <button className="w-fit flex gap-1 items-center text-xs px-2 py-1 bg-gray-200 rounded-md">
+            <p className="font-medium text-white">{"Username"}</p>
+            <button className="w-fit flex gap-1 items-center text-xs px-2 py-1 bg-neutral-800 text-gray-300 rounded-md hover:bg-neutral-700">
               <i className="fas fa-earth-asia"></i>
               <span>Public</span>
             </button>
@@ -88,8 +90,8 @@ export default function EditPostModal({
           <textarea
             value={newContent}
             onChange={(e) => setNewContent(e.target.value)}
-            placeholder={`What's on your mind, ${"User"}`}
-            className="w-full min-h-[200px] resize-none p-2 outline-none text-xl placeholder:text-xl"
+            placeholder={`What's on your mind, ${"User"}?`}
+            className="w-full min-h-[200px] resize-none p-2 outline-none text-xl placeholder:text-gray-500 text-white bg-transparent"
           />
 
           {/* Temp Image upload */}
@@ -98,8 +100,8 @@ export default function EditPostModal({
               value={newImage}
               onChange={(e) => setNewImage(e.target.value)}
               type="url"
-              placeholder="paste image link here"
-              className="outline-none border w-full p-2 rounded-lg mb-4"
+              placeholder="Paste image link here"
+              className="outline-none border border-neutral-700 bg-neutral-800 text-white w-full p-2 rounded-lg mb-4 placeholder:text-gray-500"
             />
           )}
 
@@ -107,7 +109,7 @@ export default function EditPostModal({
           <button
             disabled={!newContent.trim()}
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors cursor-pointer disabled:bg-gray-200 disabled:text-gray-300"
+            className="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-sky-700 transition-colors cursor-pointer disabled:bg-neutral-800 disabled:text-neutral-600"
           >
             Submit
           </button>

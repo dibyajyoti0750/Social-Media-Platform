@@ -135,7 +135,7 @@ export default function CreatePostModal({
           <button
             disabled={!content.trim()}
             type="submit"
-            className="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer disabled:bg-neutral-800 disabled:text-neutral-600"
+            className="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-sky-700 transition-colors cursor-pointer disabled:bg-neutral-800 disabled:text-neutral-600"
           >
             Post
           </button>
