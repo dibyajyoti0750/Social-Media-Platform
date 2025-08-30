@@ -1,42 +1,59 @@
+import { useContext } from "react";
 import { assets } from "../../assets/assets";
 
 import {
   HomeIcon,
   MagnifyingGlassIcon,
   BellIcon,
-  ChatBubbleLeftEllipsisIcon,
+  EnvelopeIcon,
   UserIcon,
-  PencilSquareIcon,
+  PencilIcon,
 } from "@heroicons/react/24/outline";
+import { MyContext } from "../../context/MyContext";
 
 const sidebarLinksOutline = [
-  { icon: HomeIcon, title: "Home" },
-  { icon: assets.circle, title: "ChatBot" },
-  { icon: MagnifyingGlassIcon, title: "Explore" },
-  { icon: BellIcon, title: "Notifications" },
-  { icon: ChatBubbleLeftEllipsisIcon, title: "Message" },
-  { icon: UserIcon, title: "Profile" },
-  { icon: PencilSquareIcon, title: "Create" },
+  { icon: HomeIcon, label: "Home" },
+  { icon: assets.circle, label: "ChatBot" },
+  { icon: MagnifyingGlassIcon, label: "Explore" },
+  { icon: BellIcon, label: "Notifications" },
+  { icon: EnvelopeIcon, label: "Message" },
+  { icon: UserIcon, label: "Profile" },
 ];
 
 export default function Sidebar() {
+  const { setIsPostModalOpen } = useContext(MyContext);
+
   return (
-    <div className="flex flex-col items-center gap-4 lg:items-start h-dvh overflow-y-auto p-2 text-lg font-medium text-gray-400">
-      {sidebarLinksOutline.map(({ icon: Icon, title }) => (
-        <div key={title}>
+    <div className="flex flex-col items-center gap-4 lg:items-start h-dvh overflow-y-auto px-6 text-lg font-medium text-gray-400">
+      {sidebarLinksOutline.map(({ icon: Icon, label }) => (
+        <div
+          key={label}
+          className="w-full flex justify-center lg:justify-start"
+        >
           <a
             href="#"
-            className="flex items-center gap-3 p-2 hover:text-gray-50"
+            className="flex items-center gap-3 py-3 hover:text-gray-50"
           >
-            {title === "ChatBot" ? (
-              <img src={Icon} alt="AI ChatBot" className="h-8 w-8" />
+            {label === "ChatBot" ? (
+              <img
+                src={Icon}
+                alt="AI ChatBot"
+                className="h-8 w-8 bg-white rounded-full border-3 border-white"
+              />
             ) : (
               <Icon className="h-8 w-8" />
             )}
-            <span className="hidden lg:inline">{title}</span>
+            <span className="hidden lg:inline">{label}</span>
           </a>
         </div>
       ))}
+
+      <button
+        onClick={() => setIsPostModalOpen(true)}
+        className="w-full bg-white text-black rounded-full py-3 font-semibold cursor-pointer"
+      >
+        Post
+      </button>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { HeartIcon } from "@heroicons/react/24/outline";
 
 export default function Reactions({ likes, comments, shares }) {
   const [randomStats] = useState({
@@ -9,12 +10,9 @@ export default function Reactions({ likes, comments, shares }) {
 
   return (
     <div className="flex justify-between items-center py-3 px-4">
-      <div className="flex items-center text-sm">
-        <i className="fas fa-thumbs-up"></i>
-        &nbsp;
-        <span className="text-gray-500 font-light">
-          {likes || randomStats.likes}
-        </span>
+      <div className="flex items-center gap-1 text-sm font-light text-gray-500">
+        <HeartIcon className="h-4 w-4" />
+        <span>{likes || randomStats.likes}</span>
       </div>
 
       <div className="flex items-center gap-2 text-sm text-gray-500 font-light">

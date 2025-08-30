@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CreatePostModal from "../Common/CreatePostModal";
 import {
   UserCircleIcon,
@@ -6,29 +6,28 @@ import {
   PhotoIcon,
   FaceSmileIcon,
 } from "@heroicons/react/24/outline";
+import { MyContext } from "../../context/MyContext";
 
 export default function CreatePost() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isPostModalOpen, setIsPostModalOpen } = useContext(MyContext);
 
   return (
     <div className="w-full max-w-2xl p-4 bg-black flex flex-col gap-2">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center">
         <UserCircleIcon className="h-10 w-10 text-neutral-500" />
 
         <input
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => setIsPostModalOpen(true)}
           type="text"
           readOnly
-          placeholder="What's happening?"
-          className="outline-none w-full py-2 px-4 bg-zinc-800 placeholder-neutral-500 text-white cursor-pointer text-xl rounded-full"
+          placeholder="What's on your mind today?"
+          className="outline-none w-full py-2 px-4 placeholder-neutral-500 cursor-pointer text-2xl"
         />
       </div>
 
-      <hr className="border-neutral-700 my-2" />
-
       <div className="flex items-center justify-between">
         <div
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => setIsPostModalOpen(true)}
           className="flex w-fit gap-2 text-sky-500"
         >
           <PhotoIcon className="h-5 w-5 cursor-pointer hover:text-sky-400" />
@@ -38,14 +37,16 @@ export default function CreatePost() {
 
         <div>
           <button
-            onClick={() => setIsModalOpen(true)}
-            className="bg-gray-300 hover:bg-gray-50 font-semibold rounded-full text-sm px-6 py-2 cursor-pointer"
+            onClick={() => setIsPostModalOpen(true)}
+            className="bg-gray-300 hover:bg-white font-semibold rounded-full text-sm px-6 py-2 cursor-pointer transition-colors duration-200"
           >
             Post
           </button>
         </div>
       </div>
-      {isModalOpen && <CreatePostModal onClose={() => setIsModalOpen(false)} />}
+      {isPostModalOpen && (
+        <CreatePostModal onPostModalClose={() => setIsPostModalOpen(false)} />
+      )}
     </div>
   );
 }

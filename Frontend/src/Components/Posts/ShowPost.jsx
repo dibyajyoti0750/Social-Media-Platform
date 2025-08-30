@@ -1,4 +1,3 @@
-import NavIcons from "../Layout/NavIcons";
 import PostHeader from "./PostHeader";
 import Reactions from "../Common/Reactions";
 import Actions from "../Actions/Actions";
@@ -27,11 +26,7 @@ export default function ShowPost({
       </div>
 
       {/* Right */}
-      <div className="col-span-4 bg-white">
-        <nav className="flex justify-end gap-2 p-3 border-b-1 border-gray-200">
-          <NavIcons />
-        </nav>
-
+      <div className="col-span-4 bg-black flex flex-col border-l border-neutral-700">
         <div>
           <PostHeader
             postId={postId}
@@ -40,12 +35,15 @@ export default function ShowPost({
             createdAt={createdAt}
           />
 
-          <div className="py-3 px-4">{content}</div>
+          <div className="py-3 px-4 text-gray-200">{content}</div>
 
           <Reactions likes={likes} comments={comments} shares={shares} />
-          <hr className="border-gray-200 mx-4" />
+
+          <hr className="border-neutral-800 mx-4" />
+
           <Actions />
-          <hr className="border-gray-200 mx-4" />
+
+          <hr className="border-neutral-800 mx-4" />
         </div>
       </div>
     </div>

@@ -1,28 +1,25 @@
 import Home from "../../Pages/Home";
 import Sidebar from "./Sidebar";
 import Message from "../Messages/Message";
-import Navbar from "./Navbar";
 
 export default function Layout() {
   return (
-    <div className="flex justify-center bg-black pt-[4rem] h-screen">
-      <Navbar />
-
-      <div className="grid grid-cols-12 w-full max-w-7xl">
+    <div className="flex justify-center bg-black h-screen">
+      <div className="flex justify-between w-full max-w-7xl">
         {/* Sidebar */}
-        <aside className="col-span-2 py-4 overflow-hidden">
+        <aside className="w-1/5 py-4 overflow-hidden">
           <Sidebar />
         </aside>
 
         {/* Main Feed */}
-        <main className="col-span-6 overflow-y-auto scrollbar-hide flex flex-col items-center border-[1px] border-neutral-700">
+        <main className="overflow-y-auto scrollbar-hide flex flex-col items-center border-x border-neutral-700">
           <div className="w-full max-w-2xl">
             <Home />
           </div>
         </main>
 
         {/* Right Sidebar */}
-        <aside className="col-span-4 py-4 overflow-hidden">
+        <aside className="w-1/4 py-4 overflow-hidden">
           <Message />
         </aside>
       </div>

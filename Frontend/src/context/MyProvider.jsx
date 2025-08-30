@@ -4,6 +4,7 @@ import { MyContext } from "./MyContext";
 export const MyProvider = ({ children }) => {
   const API = import.meta.env.VITE_API_BASE_URL;
   const [posts, setPosts] = useState([]);
+  const [isPostModalOpen, setIsPostModalOpen] = useState(false);
 
   const fetchAllPosts = async () => {
     try {
@@ -39,6 +40,8 @@ export const MyProvider = ({ children }) => {
     addPost,
     updatePost,
     removePost,
+    isPostModalOpen,
+    setIsPostModalOpen,
   };
 
   return (
