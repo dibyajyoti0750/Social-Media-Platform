@@ -1,6 +1,7 @@
 import Home from "../../Pages/Home";
 import Sidebar from "./Sidebar";
 import Message from "../Messages/Message";
+import Navbar from "./Navbar";
 
 export default function Layout() {
   return (
@@ -14,6 +15,7 @@ export default function Layout() {
         {/* Main Feed */}
         <main className="overflow-y-auto scrollbar-hide flex flex-col items-center border-x border-neutral-700">
           <div className="w-full max-w-2xl">
+            <Navbar />
             <Home />
           </div>
         </main>

@@ -8,13 +8,21 @@ import {
 } from "@heroicons/react/24/outline";
 import { MyContext } from "../../context/MyContext";
 
-export default function CreatePost() {
+export default function CreatePost({ profilePic }) {
   const { isPostModalOpen, setIsPostModalOpen } = useContext(MyContext);
 
   return (
     <div className="w-full max-w-2xl p-4 bg-black flex flex-col gap-2">
       <div className="flex items-center">
-        <UserCircleIcon className="h-10 w-10 text-neutral-500" />
+        {profilePic ? (
+          <img
+            src={profilePic}
+            alt="Profile picture"
+            className="h-10 w-10 rounded-full object-cover"
+          />
+        ) : (
+          <UserCircleIcon className="h-12 w-12 text-neutral-500" />
+        )}
 
         <input
           onClick={() => setIsPostModalOpen(true)}

@@ -27,7 +27,7 @@ export default function PostHeader({
           <p>
             <a href="#">{userName || "Demo User"}</a>
           </p>
-          <span className="text-xs text-gray-400">{timeAgo(createdAt)}</span>
+          <span className="text-xs text-gray-500">{timeAgo(createdAt)}</span>
         </div>
       </div>
 
@@ -41,6 +41,7 @@ export default function PostHeader({
       {isDropDownOpen && (
         <DropDownMenu
           postId={postId}
+          dropDownOpen={isDropDownOpen}
           closeDropDown={() => setIsDropDownOpen(false)}
         />
       )}

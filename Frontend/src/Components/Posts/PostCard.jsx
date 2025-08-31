@@ -15,7 +15,7 @@ export default function PostCard({
   createdAt,
 }) {
   return (
-    <div className="flex flex-col bg-black text-gray-200 border-t border-neutral-700 mb-2">
+    <div className="flex flex-col bg-black text-gray-100 border-t border-neutral-700 mb-2">
       {/* Header */}
       <PostHeader
         postId={postId}

@@ -1,12 +1,34 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import EditPostModal from "./EditPostModal";
 import { MyContext } from "../../context/MyContext";
 
-export default function DropDownMenu({ postId, closeDropDown }) {
+export default function DropDownMenu({ postId, dropDownOpen, closeDropDown }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [openEditPost, setOpenEditPost] = useState(false);
   const { removePost } = useContext(MyContext);
+
+  const dropDownRef = useRef(null);
+
+  // runs when dropDownOpen changes
+  useEffect(() => {
+    function handleClickOutside(e) {
+      // if click is outside the dropdown -> close it
+      if (dropDownRef.current && !dropDownRef.current.contains(e.target)) {
+        closeDropDown();
+      }
+    }
+
+    // add listener only when dropdown is open
+    if (dropDownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    // clean up: remove listener when dropdown closes or component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropDownOpen, closeDropDown]);
 
   const API = import.meta.env.VITE_API_BASE_URL;
 
@@ -34,7 +56,10 @@ export default function DropDownMenu({ postId, closeDropDown }) {
   };
 
   return (
-    <div className="absolute top-14 right-2 w-60 px-2 py-3 bg-black border border-zinc-600 rounded-lg z-50">
+    <div
+      ref={dropDownRef}
+      className="absolute top-14 right-2 w-60 px-2 py-3 bg-black border border-zinc-600 rounded-lg z-50"
+    >
       <div className="absolute -top-2 right-4 w-4 h-4 bg-black border-l border-t border-zinc-600 rotate-45"></div>
 
       <button
