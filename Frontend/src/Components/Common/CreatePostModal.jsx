@@ -100,10 +100,11 @@ export default function CreatePostModal({
         {/* Post Data */}
         <form onSubmit={handleSubmit}>
           <textarea
+            required
             value={content}
             onChange={(e) => setContent(e.target.value)}
             ref={textareaRef}
-            placeholder={`What's on your mind, ${userName || "User"}?`}
+            placeholder="What's on your mind today?"
             className="w-full min-h-[200px] resize-none p-2 outline-none text-xl placeholder:text-gray-500 text-white bg-transparent"
           />
 

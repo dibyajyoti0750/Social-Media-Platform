@@ -90,26 +90,40 @@ export default function EditPostModal({
           <textarea
             value={newContent}
             onChange={(e) => setNewContent(e.target.value)}
-            placeholder={`What's on your mind, ${"User"}?`}
-            className="w-full min-h-[200px] resize-none p-2 outline-none text-xl placeholder:text-gray-500 text-white bg-transparent"
+            placeholder="What's on your mind today?"
+            className={`w-full min-h-[200px] resize-none p-2 outline-none text-xl placeholder:text-gray-500 text-white bg-transparent ${
+              !newContent.trim() ? "rounded-lg border border-rose-600" : ""
+            }`}
           />
+
+          {!newContent.trim() && (
+            <div className="text-rose-600 mb-2">Post cannot be empty</div>
+          )}
 
           {/* Temp Image upload */}
           {post.image && (
-            <input
-              value={newImage}
-              onChange={(e) => setNewImage(e.target.value)}
-              type="url"
-              placeholder="Paste image link here"
-              className="outline-none border border-neutral-700 bg-neutral-800 text-white w-full p-2 rounded-lg mb-4 placeholder:text-gray-500"
-            />
+            <>
+              <input
+                value={newImage}
+                onChange={(e) => setNewImage(e.target.value)}
+                type="url"
+                placeholder="Paste image link here"
+                className={`outline-none border border-neutral-700 bg-neutral-800 text-white w-full p-2 rounded-lg placeholder:text-gray-500 ${
+                  !newImage.trim() ? "border border-rose-600" : ""
+                }`}
+              />
+
+              {!newImage.trim() && (
+                <div className="text-rose-600 mt-2">Link cannot be empty</div>
+              )}
+            </>
           )}
 
           {/* Post Button */}
           <button
             disabled={!newContent.trim()}
             type="submit"
-            className="w-full bg-sky-600 text-white py-2 rounded-lg hover:bg-sky-700 transition-colors cursor-pointer disabled:bg-neutral-800 disabled:text-neutral-600"
+            className="w-full bg-sky-600 text-white py-2 mt-4 rounded-lg hover:bg-sky-700 transition-colors cursor-pointer disabled:bg-neutral-800 disabled:text-neutral-600"
           >
             Submit
           </button>
