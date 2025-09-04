@@ -8,7 +8,7 @@ export default function Layout() {
     <div className="flex justify-center bg-black h-screen">
       <div className="flex justify-between w-full max-w-7xl">
         {/* Sidebar */}
-        <aside className="w-1/5 py-4 overflow-hidden">
+        <aside className="w-1/5 overflow-hidden">
           <Sidebar />
         </aside>
 
@@ -21,7 +21,7 @@ export default function Layout() {
         </main>
 
         {/* Right Sidebar */}
-        <aside className="w-1/4 py-4 overflow-hidden">
+        <aside className="w-1/4 overflow-hidden">
           <Message />
         </aside>
       </div>

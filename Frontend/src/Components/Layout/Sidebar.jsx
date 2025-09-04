@@ -24,7 +24,10 @@ export default function Sidebar() {
   const { setIsPostModalOpen } = useContext(MyContext);
 
   return (
-    <div className="flex flex-col items-center gap-4 h-dvh overflow-y-auto px-6 text-lg font-medium text-gray-300">
+    <div
+      className="flex flex-col items-center gap-4 h-dvh overflow-y-auto
+      px-6 py-4 text-lg font-medium text-gray-300 border-e border-neutral-700"
+    >
       <a href="/" className="w-full ms-0 lg:ms-[-1.5rem]">
         <img src={assets.logo} alt="Logo" className="h-16 w-16" />
       </a>
@@ -35,7 +38,7 @@ export default function Sidebar() {
           className="w-full flex justify-center lg:justify-start"
         >
           <a
-            href="#"
+            href="/"
             className="flex items-center gap-3 py-3 hover:text-gray-100"
           >
             {label === "ChatBot" ? (
