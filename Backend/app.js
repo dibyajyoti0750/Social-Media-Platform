@@ -3,6 +3,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import Post from "./models/post.js";
+import wrapAsync from "./utils/wrapAsync.js";
+import { ExpressError } from "./utils/ExpressError.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -12,34 +14,45 @@ app.use(express.json());
 app.use(cors());
 
 // Home Route
-app.get("/", async (req, res) => {
-  try {
+app.get(
+  "/",
+  wrapAsync(async (req, res, next) => {
     const allPosts = await Post.find({}).sort("-createdAt");
+
+    if (!allPosts) {
+      throw new ExpressError(404, "Posts not found");
+    }
+
     res.status(200).json({ success: true, data: allPosts });
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch posts" });
-  }
-});
+  })
+);
 
 // Show Route
-app.get("/post/:id", async (req, res) => {
-  let { id } = req.params;
-  try {
+app.get(
+  "/post/:id",
+  wrapAsync(async (req, res, next) => {
+    let { id } = req.params;
+
     const post = await Post.findById(id);
 
     if (!post) {
-      return res.status(404).json({ success: false, error: "Post not found" });
+      throw new ExpressError(404, "Post not found");
     }
 
     res.status(200).json({ success: true, data: post });
-  } catch (err) {
-    res.status(500).json({ success: false, error: "Failed to fetch post" });
-  }
-});
+  })
+);
 
 // Create route
-app.post("/post", async (req, res) => {
-  try {
+app.post(
+  "/post",
+  wrapAsync(async (req, res, next) => {
+    if (!req.body || Object.keys(req.body).length === 0) {
+      // express.json() always gives you an obj, this checks whether the object has zero own properties.
+
+      throw new ExpressError(400, "Send valid data to post");
+    }
+
     const newPost = new Post(req.body);
     const savedPost = await newPost.save();
 
@@ -48,25 +61,24 @@ app.post("/post", async (req, res) => {
       message: "New post saved",
       data: savedPost,
     });
-  } catch (err) {
-    res.status(400).json({
-      success: false,
-      message: "Failed to save post",
-      error: err.message,
-    });
-  }
-});
+  })
+);
 
 // Edit route
-app.patch("/post/:id", async (req, res) => {
-  const { id } = req.params;
-  const { content, image } = req.body;
+app.patch(
+  "/post/:id",
+  wrapAsync(async (req, res, next) => {
+    if (!req.body || Object.keys(req.body).length === 0) {
+      throw new ExpressError(400, "Send valid post data to update");
+    }
 
-  const updates = {};
-  if (content !== undefined) updates.content = content;
-  if (image !== undefined) updates.image = image;
+    const { id } = req.params;
+    const { content, image } = req.body;
 
-  try {
+    const updates = {};
+    if (content !== undefined) updates.content = content;
+    if (image !== undefined) updates.image = image;
+
     const editedPost = await Post.findByIdAndUpdate(id, updates, { new: true });
 
     if (!editedPost) {
@@ -81,33 +93,50 @@ app.patch("/post/:id", async (req, res) => {
       message: "Post edited successfully",
       data: editedPost,
     });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: "Server error while editing post",
-      error: err.message,
-    });
-  }
-});
+  })
+);
 
 // Destroy route
-app.delete("/post/:id", async (req, res) => {
-  let { id } = req.params;
-  try {
+app.delete(
+  "/post/:id",
+  wrapAsync(async (req, res, next) => {
+    let { id } = req.params;
+
     const deletedPost = await Post.findByIdAndDelete(id);
+
+    if (!deletedPost) {
+      throw new ExpressError(404, "Post not found");
+    }
 
     res.status(200).json({
       success: true,
       message: "Post deleted successfully",
       data: deletedPost,
     });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: "Server error while deleting post",
-      error: err.message,
-    });
+  })
+);
+
+// Catches every request that doesn’t match any defined route
+// ...and forwards a 404 error to the global error handler
+// Using /.*/ means it's a regular expression that matches any path
+app.all(/.*/, (req, res, next) => {
+  next(new ExpressError(404, "Page not found"));
+});
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+  console.log(err);
+
+  if (err.name === "CastError") {
+    return res.status(400).json({ success: false, error: "Invalid ID format" });
   }
+
+  if (err.name === "ValidationError") {
+    return res.status(400).json({ success: false, error: err.message });
+  }
+
+  const { status = 500, message = "Something went wrong" } = err;
+  res.status(status).json({ success: false, error: message });
 });
 
 // Server starter
