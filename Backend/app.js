@@ -5,6 +5,7 @@ import cors from "cors";
 import Post from "./models/post.js";
 import wrapAsync from "./utils/wrapAsync.js";
 import { ExpressError } from "./utils/ExpressError.js";
+import { postSchema, updatePostSchema } from "./schema.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -12,6 +13,16 @@ const port = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
 app.use(cors());
+
+const validatePost = (schema) => (req, res, next) => {
+  let { error } = schema.validate(req.body);
+
+  if (error) {
+    throw new ExpressError(400, error.details[0].message);
+  } else {
+    next();
+  }
+};
 
 // Home Route
 app.get(
@@ -46,19 +57,14 @@ app.get(
 // Create route
 app.post(
   "/post",
+  validatePost(postSchema),
   wrapAsync(async (req, res, next) => {
-    if (!req.body || Object.keys(req.body).length === 0) {
-      // express.json() always gives you an obj, this checks whether the object has zero own properties.
-
-      throw new ExpressError(400, "Send valid data to post");
-    }
-
     const newPost = new Post(req.body);
     const savedPost = await newPost.save();
 
     res.status(201).json({
       success: true,
-      message: "New post saved",
+      message: "Your post was sent",
       data: savedPost,
     });
   })
@@ -67,25 +73,16 @@ app.post(
 // Edit route
 app.patch(
   "/post/:id",
+  validatePost(updatePostSchema),
   wrapAsync(async (req, res, next) => {
-    if (!req.body || Object.keys(req.body).length === 0) {
-      throw new ExpressError(400, "Send valid post data to update");
-    }
-
     const { id } = req.params;
-    const { content, image } = req.body;
 
-    const updates = {};
-    if (content !== undefined) updates.content = content;
-    if (image !== undefined) updates.image = image;
-
-    const editedPost = await Post.findByIdAndUpdate(id, updates, { new: true });
+    const editedPost = await Post.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
 
     if (!editedPost) {
-      return res.status(404).json({
-        success: false,
-        message: "Post not found",
-      });
+      throw new ExpressError(404, "Post not found");
     }
 
     res.status(200).json({
