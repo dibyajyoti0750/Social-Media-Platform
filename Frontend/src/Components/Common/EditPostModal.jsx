@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import { MyContext } from "../../context/MyContext";
+import { MinusCircleIcon } from "@heroicons/react/24/outline";
 
 export default function EditPostModal({
   postId,
@@ -9,6 +10,7 @@ export default function EditPostModal({
 }) {
   const [newContent, setNewContent] = useState("");
   const [newImage, setNewImage] = useState("");
+  const [error, setError] = useState("");
 
   const { posts, updatePost } = useContext(MyContext);
   const post = posts.find((item) => item._id == postId);
@@ -17,10 +19,12 @@ export default function EditPostModal({
 
   const handleEdit = async (e) => {
     e.preventDefault();
-    const body = {};
+    setError("");
 
-    if (newContent.trim() !== "") body.content = newContent;
-    if (newImage.trim() !== "") body.image = newImage;
+    const body = {
+      content: newContent,
+      image: newImage,
+    };
 
     try {
       const options = {
@@ -33,6 +37,12 @@ export default function EditPostModal({
 
       const response = await fetch(`${API}/post/${postId}`, options);
       const data = await response.json();
+      console.log(data);
+
+      if (!data.success) {
+        setError(data.error);
+        return;
+      }
 
       if (data.success) {
         updatePost(data.data);
@@ -96,32 +106,34 @@ export default function EditPostModal({
             }`}
           />
 
-          {!newContent.trim() && (
-            <div className="text-rose-600 mb-2">Post cannot be empty</div>
+          {error && !newContent.trim() && (
+            <p className="text-rose-600 text-sm font-medium mb-2">{error}</p>
           )}
 
           {/* Temp Image upload */}
-          {post.image && (
-            <>
-              <input
-                value={newImage}
-                onChange={(e) => setNewImage(e.target.value)}
-                type="url"
-                placeholder="Paste image link here"
-                className={`outline-none border border-neutral-700 bg-neutral-800 text-white w-full p-2 rounded-lg placeholder:text-gray-500 ${
-                  !newImage.trim() ? "border border-rose-600" : ""
-                }`}
-              />
+          {post.image && newImage && (
+            <div className="relative">
+              <button
+                type="button"
+                title="Remove image"
+                onClick={() => setNewImage("")}
+                className="absolute top-2 right-2 flex items-center justify-center rounded-full bg-white w-6 h-6 cursor-pointer"
+              >
+                <MinusCircleIcon class="h-5 w-5 text-red-600" />
+              </button>
 
-              {!newImage.trim() && (
-                <div className="text-rose-600 mt-2">Link cannot be empty</div>
-              )}
-            </>
+              {/* Image preview */}
+              <img
+                src={post.image}
+                alt="Post"
+                className="w-full max-h-80 object-cover rounded-lg"
+              />
+            </div>
           )}
 
           {/* Post Button */}
           <button
-            disabled={!newContent.trim()}
+            disabled={!newContent.trim() && !newImage.trim()}
             type="submit"
             className="w-full bg-sky-600 text-white py-2 mt-4 rounded-lg hover:bg-sky-700 transition-colors cursor-pointer disabled:bg-neutral-800 disabled:text-neutral-600"
           >

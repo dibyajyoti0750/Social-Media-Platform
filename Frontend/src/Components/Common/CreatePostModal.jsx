@@ -9,6 +9,7 @@ export default function CreatePostModal({
 }) {
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
+  const [error, setError] = useState("");
   const [showImageInput, setShowImageInput] = useState(false);
   const { addPost } = useContext(MyContext);
   const API = import.meta.env.VITE_API_BASE_URL;
@@ -19,6 +20,7 @@ export default function CreatePostModal({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
     const body = { content };
     if (image) body.image = image;
@@ -33,6 +35,11 @@ export default function CreatePostModal({
       const response = await fetch(`${API}/post`, options);
       const data = await response.json();
       console.log(data);
+
+      if (!data.success) {
+        setError(data.error);
+        return;
+      }
 
       if (data.success) {
         setContent("");
@@ -105,8 +112,14 @@ export default function CreatePostModal({
             onChange={(e) => setContent(e.target.value)}
             ref={textareaRef}
             placeholder="What's on your mind today?"
-            className="w-full min-h-[200px] resize-none p-2 outline-none text-xl placeholder:text-gray-500 text-white bg-transparent"
+            className={`w-full min-h-[200px] resize-none p-2 outline-none text-xl placeholder:text-gray-500 text-white bg-transparent ${
+              error ? "rounded-lg border border-rose-600" : ""
+            }`}
           />
+
+          {error && (
+            <p className="text-rose-600 text-sm font-medium mb-2">{error}</p>
+          )}
 
           {/* Temp Image upload */}
           {showImageInput && (

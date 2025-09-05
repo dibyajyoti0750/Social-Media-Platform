@@ -12,7 +12,7 @@ export default function Footer() {
       </div>
 
       <div className="flex justify-center items-center pb-6">
-        <p className="text-gray-400 text-sm text-center md:text-right">
+        <p className="text-neutral-500 text-sm text-center md:text-right">
           &copy; {new Date().getFullYear()} GlowUp. All rights reserved.
         </p>
       </div>
