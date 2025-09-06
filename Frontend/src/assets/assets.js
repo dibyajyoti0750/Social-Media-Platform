@@ -13,6 +13,12 @@ import feeds from "./feed.png";
 import events from "./event.png";
 import down from "./down.png";
 
+import tempUser1 from "./tempUser1.jpg";
+import tempUser2 from "./tempUser2.jpg";
+import tempUser3 from "./tempUser3.jpg";
+import tempUser4 from "./tempUser4.jpg";
+import tempUser5 from "./tempUser5.jpg";
+
 export const assets = {
   chad,
   logo,
@@ -27,4 +33,10 @@ export const assets = {
   feeds,
   events,
   down,
+
+  tempUser1,
+  tempUser2,
+  tempUser3,
+  tempUser4,
+  tempUser5,
 };

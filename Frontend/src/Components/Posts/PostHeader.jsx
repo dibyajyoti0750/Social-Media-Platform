@@ -12,31 +12,33 @@ export default function PostHeader({
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
   return (
-    <div className="relative flex justify-between text-gray-100 items-center pt-4 px-4">
-      <div className="flex items-center gap-4">
+    <div className="relative flex justify-between items-center text-gray-100 pt-4 px-4">
+      {/* Profile & User Info */}
+      <div className="flex items-center gap-3">
         <a href="#">
           <img
             src={profilePic || assets.user}
             loading="lazy"
             alt={`${userName || "Demo User"} profile`}
-            className="h-10 rounded-full"
+            className="h-10 w-10 rounded-full object-cover"
           />
         </a>
 
-        <div>
-          <p>
-            <a href="#">{userName || "Demo User"}</a>
-          </p>
+        <div className="flex flex-col leading-tight">
+          <a href="#" className="font-medium hover:underline">
+            {userName || "Demo User"}
+          </a>
           <span className="text-xs text-gray-500">{timeAgo(createdAt)}</span>
         </div>
       </div>
 
-      <div
+      {/* Dropdown Button */}
+      <button
         onClick={() => setIsDropDownOpen(!isDropDownOpen)}
         className="w-8 h-8 flex items-center justify-center hover:bg-zinc-800 rounded-full cursor-pointer"
       >
         <i className="fas fa-ellipsis"></i>
-      </div>
+      </button>
 
       {isDropDownOpen && (
         <DropDownMenu

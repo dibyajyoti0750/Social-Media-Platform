@@ -15,7 +15,7 @@ export default function PostCard({
   createdAt,
 }) {
   return (
-    <div className="flex flex-col bg-black text-gray-100 border-t border-neutral-700 mb-2">
+    <div className="flex flex-col bg-black text-gray-100 border-t border-neutral-800 mb-2">
       {/* Header */}
       <PostHeader
         postId={postId}
@@ -39,7 +39,7 @@ export default function PostCard({
 
       {/* Footer */}
       <Reactions likes={likes} comments={comments} shares={shares} />
-      <hr className="border-neutral-700 my-2 mx-4" />
+      <hr className="border-neutral-800 my-2 mx-4" />
       <Actions />
     </div>
   );

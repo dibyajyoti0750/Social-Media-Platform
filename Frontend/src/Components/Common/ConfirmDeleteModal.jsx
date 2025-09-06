@@ -6,7 +6,7 @@ export default function ConfirmDeleteModal({ onCancelDelete, onAction }) {
           Confirm delete?
         </h2>
 
-        <hr className="border-neutral-700" />
+        <hr className="border-neutral-800" />
 
         <p className="text-sm text-center text-gray-300">
           This action is irreversible. Once deleted, the post cannot be

@@ -76,7 +76,7 @@ export default function EditPostModal({
           </button>
         </div>
 
-        <hr className="border-neutral-700 my-2" />
+        <hr className="border-neutral-800 my-2" />
 
         {/* User Info */}
         <div className="flex items-center gap-3 py-4">

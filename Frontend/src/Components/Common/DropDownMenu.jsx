@@ -58,9 +58,9 @@ export default function DropDownMenu({ postId, dropDownOpen, closeDropDown }) {
   return (
     <div
       ref={dropDownRef}
-      className="absolute top-14 right-2 w-60 px-2 py-3 bg-black border border-zinc-600 rounded-lg z-50"
+      className="absolute top-14 right-2 w-60 px-2 py-3 bg-black border border-neutral-700 rounded-lg z-50"
     >
-      <div className="absolute -top-2 right-4 w-4 h-4 bg-black border-l border-t border-zinc-600 rotate-45"></div>
+      <div className="absolute -top-2 right-4 w-4 h-4 bg-black border-l border-t border-neutral-700 rotate-45"></div>
 
       <button
         onClick={() => setOpenEditPost(true)}

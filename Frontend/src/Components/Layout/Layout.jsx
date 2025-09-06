@@ -1,7 +1,9 @@
 import Home from "../../Pages/Home";
 import Sidebar from "./Sidebar";
-import Message from "../Messages/Message";
 import Navbar from "./Navbar";
+import FollowSuggestions from "./FollowSuggestions";
+import { EnvelopeOpenIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 export default function Layout() {
   return (
@@ -13,7 +15,7 @@ export default function Layout() {
         </aside>
 
         {/* Main Feed */}
-        <main className="overflow-y-auto scrollbar-hide flex flex-col items-center border-x border-neutral-700">
+        <main className="overflow-y-auto scrollbar-hide flex flex-col items-center border-x border-neutral-800">
           <div className="w-full max-w-2xl">
             <Navbar />
             <Home />
@@ -22,8 +24,16 @@ export default function Layout() {
 
         {/* Right Sidebar */}
         <aside className="w-1/4 overflow-hidden">
-          <Message />
+          <FollowSuggestions />
         </aside>
+
+        <Link
+          to={"/inbox"}
+          className="flex items-center gap-2 fixed bottom-6 right-6 w-[20%] opacity-90 bg-zinc-800 hover:opacity-100 text-white p-4 rounded-full cursor-pointer"
+        >
+          <EnvelopeOpenIcon className="h-6 w-6 text-white" />
+          <span>Messages</span>
+        </Link>
       </div>
     </div>
   );

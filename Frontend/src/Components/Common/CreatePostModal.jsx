@@ -85,7 +85,7 @@ export default function CreatePostModal({
           </button>
         </div>
 
-        <hr className="border-neutral-700 my-2" />
+        <hr className="border-neutral-800 my-2" />
 
         {/* User Info */}
         <div className="flex items-center gap-3 py-4">
@@ -132,7 +132,7 @@ export default function CreatePostModal({
             />
           )}
 
-          <div className="flex justify-between items-center rounded-lg w-full border border-neutral-700 p-3 mb-4 shadow-sm">
+          <div className="flex justify-between items-center rounded-lg w-full border border-neutral-800 p-3 mb-4 shadow-sm">
             <span className="font-medium text-gray-300">Add to your post</span>
             <div className="flex items-center gap-3">
               {icons.map((item, idx) => (
