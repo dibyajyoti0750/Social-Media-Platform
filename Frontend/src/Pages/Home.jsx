@@ -16,6 +16,7 @@ export default function Home() {
           postId={post._id}
           content={post.content}
           image={post.image}
+          comments={post.comments}
           createdAt={post.createdAt}
         />
       ))}

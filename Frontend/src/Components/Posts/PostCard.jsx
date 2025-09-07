@@ -11,7 +11,6 @@ export default function PostCard({
   image,
   likes,
   comments,
-  shares,
   createdAt,
 }) {
   return (
@@ -38,9 +37,9 @@ export default function PostCard({
       )}
 
       {/* Footer */}
-      <Reactions likes={likes} comments={comments} shares={shares} />
-      <hr className="border-neutral-800 my-2 mx-4" />
-      <Actions />
+      <Reactions likes={likes} comments={comments} postId={postId} />
+      <hr className="border-neutral-800" />
+      <Actions postId={postId} />
     </div>
   );
 }

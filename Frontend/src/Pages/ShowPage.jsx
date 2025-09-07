@@ -25,13 +25,15 @@ export default function ShowPage() {
   if (!post) return <p className="text-center">Loading...</p>; // This line gives React something safe to render until fetch finishes and updates post, after which React re-renders with the real data
 
   return (
-    <>
+    <div>
       <ShowPost
         postId={id}
         content={post.content}
         image={post.image}
+        comments={post.comments}
         createdAt={post.createdAt}
+        refreshPost={fetchPost}
       />
-    </>
+    </div>
   );
 }
