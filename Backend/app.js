@@ -6,6 +6,7 @@ import Post from "./models/post.js";
 import wrapAsync from "./utils/wrapAsync.js";
 import { ExpressError } from "./utils/ExpressError.js";
 import { postSchema, updatePostSchema } from "./schema.js";
+import CommentModel from "./models/comment.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -44,7 +45,7 @@ app.get(
   wrapAsync(async (req, res, next) => {
     let { id } = req.params;
 
-    const post = await Post.findById(id);
+    const post = await Post.findById(id).populate({ path: "comments" });
 
     if (!post) {
       throw new ExpressError(404, "Post not found");
@@ -66,6 +67,28 @@ app.post(
       success: true,
       message: "Your post was sent",
       data: savedPost,
+    });
+  })
+);
+
+// Create route for comments
+app.post(
+  "/post/:id/comments",
+  wrapAsync(async (req, res) => {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      throw new ExpressError(404, "Post not found");
+    }
+
+    const newComment = new CommentModel(req.body);
+    const savedComment = await newComment.save();
+
+    post.comments.push(savedComment._id);
+    await post.save();
+
+    res.status(201).json({
+      success: true,
+      message: "New comment added",
     });
   })
 );
