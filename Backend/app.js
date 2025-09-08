@@ -5,7 +5,7 @@ import cors from "cors";
 import Post from "./models/post.js";
 import wrapAsync from "./utils/wrapAsync.js";
 import { ExpressError } from "./utils/ExpressError.js";
-import { postSchema, updatePostSchema } from "./schema.js";
+import { commentSchema, postSchema, updatePostSchema } from "./schema.js";
 import CommentModel from "./models/comment.js";
 
 const app = express();
@@ -19,6 +19,18 @@ const validatePost = (schema) => (req, res, next) => {
   let { error } = schema.validate(req.body);
 
   if (error) {
+    throw new ExpressError(400, error.details[0].message);
+  } else {
+    next();
+  }
+};
+
+const validateComment = (req, res, next) => {
+  let { error } = commentSchema.validate(req.body);
+
+  if (error) {
+    console.log(error.details[0].message);
+
     throw new ExpressError(400, error.details[0].message);
   } else {
     next();
@@ -74,6 +86,7 @@ app.post(
 // Create route for comments
 app.post(
   "/post/:id/comments",
+  validateComment,
   wrapAsync(async (req, res) => {
     const post = await Post.findById(req.params.id);
     if (!post) {

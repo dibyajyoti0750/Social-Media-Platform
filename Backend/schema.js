@@ -19,3 +19,7 @@ export const updatePostSchema = Joi.object({
   .messages({
     "object.unknown": "Invalid field(s) provided",
   });
+
+export const commentSchema = Joi.object({
+  comment: Joi.string().required(),
+});
