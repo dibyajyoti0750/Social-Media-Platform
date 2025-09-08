@@ -108,7 +108,7 @@ export default function CreatePostModal({
         <form onSubmit={handleSubmit}>
           <textarea
             required
-            value={content}
+            value={content.trim()}
             onChange={(e) => setContent(e.target.value)}
             ref={textareaRef}
             placeholder="What's on your mind today?"

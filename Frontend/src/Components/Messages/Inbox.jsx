@@ -1,3 +1,4 @@
+import ChatArea from "./ChatArea";
 import ConversationList from "./ConversationList";
 
 export default function Inbox() {
@@ -9,7 +10,9 @@ export default function Inbox() {
       </div>
 
       {/* Chat Area */}
-      <div className="flex-1"></div>
+      <div className="flex-1">
+        <ChatArea />
+      </div>
     </div>
   );
 }

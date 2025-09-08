@@ -50,54 +50,58 @@ const conversations = [
 export default function ConversationList() {
   return (
     <div className="h-full flex flex-col overflow-y-auto">
-      <div className="flex justify-between items-center mt-6 px-6">
-        <h4 className="text-xl font-semibold text-white">Messages</h4>
-        <PencilSquareIcon className="h-6 w-6 text-zinc-500 cursor-pointer" />
+      {/* Upper */}
+      <div className="flex justify-between items-center mt-8 px-6">
+        <h4 className="text-2xl font-semibold text-white">Username</h4>
+        <PencilSquareIcon className="h-7 w-7 text-zinc-400 cursor-pointer" />
       </div>
 
-      <div className="p-6">
-        <div className="flex items-center gap-2 bg-neutral-800 rounded-lg px-3 py-2">
-          <MagnifyingGlassIcon className="h-5 w-5 text-zinc-500" />
+      <div className="px-6 py-8">
+        <div className="flex items-center gap-3 bg-neutral-800 rounded-lg px-4 py-3">
+          <MagnifyingGlassIcon className="h-6 w-6 text-zinc-400" />
           <input
             type="text"
             placeholder="Search conversations..."
-            className="bg-transparent outline-none text-sm text-white placeholder-neutral-500 w-full"
+            className="bg-transparent outline-none text-base text-white placeholder-neutral-500 w-full"
           />
         </div>
       </div>
 
-      <hr className="border-neutral-800" />
-
-      <div className="p-6 space-y-4">
+      {/* Lower */}
+      <div className="px-6 space-y-4">
         {conversations.map((c, i) => (
           <div
             key={i}
-            className="flex items-center gap-3 p-3 rounded-xl hover:bg-neutral-800 cursor-pointer transition"
+            className="flex items-center gap-4 p-4 rounded-xl hover:bg-neutral-800 cursor-pointer transition"
           >
             {/* Avatar */}
             <div className="relative">
               <img
                 src={c.avatar}
                 alt={c.name}
-                className="w-12 h-12 rounded-full object-cover"
+                className="w-14 h-14 rounded-full object-cover"
               />
               {c.online && (
-                <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-600 border-2 border-neutral-900 rounded-full" />
+                <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-600 border-2 border-neutral-900 rounded-full" />
               )}
             </div>
 
             {/* Details */}
             <div className="flex-1 min-w-0">
               <div className="flex justify-between items-center">
-                <h4 className="text-white font-medium truncate">{c.name}</h4>
-                <span className="text-xs text-gray-400">{c.time}</span>
+                <h4 className="text-white font-medium truncate text-lg">
+                  {c.name}
+                </h4>
+                <span className="text-sm text-gray-400">{c.time}</span>
               </div>
-              <p className="text-sm text-gray-400 truncate">{c.lastMessage}</p>
+              <p className="text-base text-gray-400 truncate">
+                {c.lastMessage}
+              </p>
             </div>
 
             {/* Unread badge */}
             {c.unread > 0 && (
-              <span className="flex justify-center items-center h-6 w-6 text-xs bg-sky-600 text-white rounded-full">
+              <span className="flex justify-center items-center h-7 w-7 text-sm bg-sky-600 text-white rounded-full">
                 {c.unread}
               </span>
             )}

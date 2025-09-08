@@ -3,6 +3,11 @@ import Reactions from "../Common/Reactions";
 import Actions from "../Actions/Actions";
 import { useRef, useState } from "react";
 import { assets } from "../../assets/assets";
+import {
+  ArrowLongLeftIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
+} from "@heroicons/react/24/solid";
+import { timeAgo } from "../../utils";
 
 export default function ShowPost({
   postId,
@@ -41,22 +46,41 @@ export default function ShowPost({
       console.log(err);
     }
   };
-
   return (
-    <div className="grid grid-cols-12">
-      {/* Left */}
-      <div className="col-span-8 bg-black flex items-center justify-center h-screen">
-        <img
-          src={image}
-          loading="lazy"
-          alt={content || "Post image"}
-          className="max-h-full max-w-full object-contain"
-        />
-      </div>
+    <div className="grid grid-cols-12 bg-black">
+      {/* Left side if image exists */}
+      {image && (
+        <div className="col-span-8 bg-black flex items-center justify-center h-screen">
+          <img
+            src={image}
+            loading="lazy"
+            alt={content || "Post image"}
+            className="max-h-full max-w-full object-contain"
+          />
+        </div>
+      )}
 
       {/* Right */}
-      <div className="col-span-4 bg-black flex flex-col border-l border-neutral-700">
-        {/* Scrollable area */}
+      <div
+        className={`${
+          image
+            ? "col-span-4 border-l"
+            : "col-span-12 mx-auto w-6/12 h-screen border-l border-r"
+        } bg-black flex flex-col border-neutral-800`}
+      >
+        {/* Back button */}
+        <div className="flex items-center gap-2 w-fit p-4 text-xl font-semibold text-white">
+          <ArrowLongLeftIcon
+            title="Go back"
+            onClick={() => window.history.back()}
+            className="h-6 w-6 cursor-pointer"
+          />
+          <h3>Post</h3>
+        </div>
+
+        <hr className="border-neutral-800" />
+
+        {/* Post contents */}
         <div className="flex-1 overflow-y-auto">
           {/* Header */}
           <PostHeader
@@ -71,30 +95,44 @@ export default function ShowPost({
             {content}
           </div>
 
-          {/* Comments Section */}
-          <div className="px-4 py-3 space-y-3">
-            {comments.map((item, idx) => (
-              <div
-                key={idx}
-                className="flex items-start gap-3 bg-neutral-900 p-3 rounded-2xl"
-              >
-                <img
-                  src={item.profilePic || assets.user}
-                  alt={item.username || "User"}
-                  className="w-9 h-9 rounded-full object-cover"
-                />
-                <div className="flex flex-col">
-                  <span className="text-sm font-semibold text-white">
-                    {item.username || "Demo user"}
-                  </span>
-                  <p className="text-sm text-neutral-300">{item.comment}</p>
+          {/* Comments Section*/}
+          {comments.length ? (
+            // If comments exists
+            <div className="py-3">
+              {comments.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-start gap-3 bg-neutral-900 px-6 py-3"
+                >
+                  <img
+                    src={item.profilePic || assets.user}
+                    alt={item.username || "User"}
+                    className="w-9 h-9 rounded-full object-cover"
+                  />
+                  <div className="flex flex-col">
+                    <div className="text-sm font-semibold text-white">
+                      {item.username || "Demo user"}
+                      <span className="text-neutral-500 font-normal">
+                        {" "}
+                        • {timeAgo(item.createdAt)}
+                      </span>
+                    </div>
+
+                    <p className="text-sm text-neutral-300">{item.comment}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            // If comments doesn't exists
+            <div className="px-4 py-10 h-[80%] flex flex-col items-center justify-center text-neutral-600">
+              <ChatBubbleOvalLeftEllipsisIcon className="w-16 h-16 mb-2" />
+              <p className="text-sm">No comments yet</p>
+            </div>
+          )}
         </div>
 
-        {/* Bottom Section (reactions + input) */}
+        {/* Bottom Section */}
         <div className="border-t border-neutral-800">
           <Reactions likes={likes} comments={comments} postId={postId} />
           <hr className="border-neutral-800" />
@@ -107,8 +145,9 @@ export default function ShowPost({
           className="flex items-center justify-between gap-2 px-3 py-4 border-t border-neutral-800"
         >
           <input
+            required
             ref={inputRef}
-            value={comment}
+            value={comment.trim()}
             onChange={(e) => setComment(e.target.value)}
             type="text"
             placeholder="Add a comment..."
