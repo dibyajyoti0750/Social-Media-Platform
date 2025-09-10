@@ -3,6 +3,7 @@ import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import EditPostModal from "./EditPostModal";
 import { MyContext } from "../../context/MyContext";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function DropDownMenu({
   postId,
@@ -40,14 +41,8 @@ export default function DropDownMenu({
   const API = import.meta.env.VITE_API_BASE_URL;
 
   const handleDelete = async () => {
-    const options = {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    };
-
     try {
-      const response = await fetch(`${API}/post/${postId}`, options);
-      const data = await response.json();
+      const { data } = await axios.delete(`${API}/post/${postId}`);
 
       if (data.success) {
         setConfirmDelete(false);
@@ -96,6 +91,7 @@ export default function DropDownMenu({
           postId={postId}
           closeEditModal={() => setOpenEditPost(false)}
           closeDropDown={closeDropDown}
+          isOnShowPage={isOnShowPage}
         />
       )}
 

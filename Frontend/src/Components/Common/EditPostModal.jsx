@@ -2,15 +2,20 @@ import { useContext, useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import { MyContext } from "../../context/MyContext";
 import { MinusCircleIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function EditPostModal({
   postId,
   closeEditModal,
   closeDropDown,
+  isOnShowPage,
 }) {
   const [newContent, setNewContent] = useState("");
   const [newImage, setNewImage] = useState("");
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const { posts, updatePost } = useContext(MyContext);
   const post = posts.find((item) => item._id == postId);
@@ -27,28 +32,21 @@ export default function EditPostModal({
     };
 
     try {
-      const options = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      };
-
-      const response = await fetch(`${API}/post/${postId}`, options);
-      const data = await response.json();
-      console.log(data);
+      const { data } = await axios.patch(`${API}/post/${postId}`, body);
 
       if (!data.success) {
         setError(data.error);
         return;
       }
 
-      if (data.success) {
-        updatePost(data.data);
-        closeEditModal();
-        closeDropDown();
+      if (isOnShowPage) {
+        navigate("/");
+        return;
       }
+
+      updatePost(data.data);
+      closeEditModal();
+      closeDropDown();
     } catch (err) {
       console.log(err);
     }
@@ -106,7 +104,7 @@ export default function EditPostModal({
             }`}
           />
 
-          {error && !newContent.trim() && (
+          {error && (
             <p className="text-rose-600 text-sm font-medium mb-2">{error}</p>
           )}
 

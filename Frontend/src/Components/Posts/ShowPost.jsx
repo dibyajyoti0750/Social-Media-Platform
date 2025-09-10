@@ -49,7 +49,7 @@ export default function ShowPost({
 
   const deleteComment = async (commentId) => {
     try {
-      const response = await axios.delete(
+      const { data } = await axios.delete(
         `${API}/post/${postId}/comments/${commentId}`
       );
 

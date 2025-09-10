@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import ShowPost from "../Components/Posts/ShowPost";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function ShowPage() {
   const { id } = useParams();
@@ -10,8 +11,7 @@ export default function ShowPage() {
 
   const fetchPost = async () => {
     try {
-      const response = await fetch(`${API}/post/${id}`);
-      const data = await response.json();
+      const { data } = await axios.get(`${API}/post/${id}`);
       setPost(data.data);
     } catch (err) {
       console.log(err);

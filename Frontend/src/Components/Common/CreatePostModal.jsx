@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { assets } from "../../assets/assets";
 import { MyContext } from "../../context/MyContext";
+import axios from "axios";
 
 export default function CreatePostModal({
   onPostModalClose,
@@ -25,15 +26,8 @@ export default function CreatePostModal({
     const body = { content };
     if (image) body.image = image;
 
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    };
-
     try {
-      const response = await fetch(`${API}/post`, options);
-      const data = await response.json();
+      const { data } = await axios.post(`${API}/post`, body);
       console.log(data);
 
       if (!data.success) {
@@ -41,14 +35,12 @@ export default function CreatePostModal({
         return;
       }
 
-      if (data.success) {
-        setContent("");
-        setImage("");
-        addPost(data.data);
-        onPostModalClose();
-      }
+      setContent("");
+      setImage("");
+      addPost(data.data);
+      onPostModalClose();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -107,8 +99,7 @@ export default function CreatePostModal({
         {/* Post Data */}
         <form onSubmit={handleSubmit}>
           <textarea
-            required
-            value={content.trim()}
+            value={content}
             onChange={(e) => setContent(e.target.value)}
             ref={textareaRef}
             placeholder="What's on your mind today?"

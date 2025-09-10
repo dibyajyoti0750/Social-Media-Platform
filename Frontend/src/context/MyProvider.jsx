@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { MyContext } from "./MyContext";
+import axios from "axios";
 
 export const MyProvider = ({ children }) => {
   const API = import.meta.env.VITE_API_BASE_URL;
@@ -8,8 +9,7 @@ export const MyProvider = ({ children }) => {
 
   const fetchAllPosts = async () => {
     try {
-      const response = await fetch(API);
-      const data = await response.json();
+      const { data } = await axios.get(API);
       setPosts(data.data);
     } catch (err) {
       console.log(err);
