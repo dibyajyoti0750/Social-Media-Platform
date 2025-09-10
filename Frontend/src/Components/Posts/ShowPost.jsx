@@ -1,3 +1,4 @@
+import axios from "axios";
 import PostHeader from "./PostHeader";
 import Reactions from "../Common/Reactions";
 import Actions from "../Actions/Actions";
@@ -6,6 +7,7 @@ import { assets } from "../../assets/assets";
 import {
   ArrowLongLeftIcon,
   ChatBubbleOvalLeftEllipsisIcon,
+  TrashIcon,
 } from "@heroicons/react/24/solid";
 import { timeAgo } from "../../utils";
 
@@ -21,6 +23,7 @@ export default function ShowPost({
   refreshPost,
 }) {
   const [comment, setComment] = useState("");
+
   const inputRef = useRef(null);
   const API = import.meta.env.VITE_API_BASE_URL;
 
@@ -30,22 +33,32 @@ export default function ShowPost({
 
   const addComment = async (e) => {
     e.preventDefault();
-
-    const body = { comment };
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    };
+    if (!comment.trim()) return;
 
     try {
-      await fetch(`${API}/post/${postId}/comments`, options);
+      // Send comment to backend
+      await axios.post(`${API}/post/${postId}/comments`, { comment });
+
+      // Clear input and refresh post
       setComment("");
+      refreshPost();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const deleteComment = async (commentId) => {
+    try {
+      const response = await axios.delete(
+        `${API}/post/${postId}/comments/${commentId}`
+      );
+
       refreshPost();
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <div className="grid grid-cols-12 bg-black">
       {/* Left side if image exists */}
@@ -98,27 +111,38 @@ export default function ShowPost({
           {/* Comments Section*/}
           {comments.length ? (
             // If comments exists
-            <div className="py-3">
+            <div className="py-3 space-y-4">
               {comments.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-start gap-3 bg-neutral-900 px-6 py-3"
-                >
+                <div key={idx} className="flex items-start gap-3 px-6">
+                  {/* Profile Picture */}
                   <img
                     src={item.profilePic || assets.user}
                     alt={item.username || "User"}
-                    className="w-9 h-9 rounded-full object-cover"
+                    className="w-10 h-10 rounded-full object-cover ring-1 ring-neutral-800"
                   />
-                  <div className="flex flex-col">
-                    <div className="text-sm font-semibold text-white">
-                      {item.username || "Demo user"}
-                      <span className="text-neutral-500 font-normal">
-                        {" "}
-                        • {timeAgo(item.createdAt)}
-                      </span>
+
+                  {/* Comment Content */}
+                  <div className="flex flex-col flex-1">
+                    {/* Header: Username + Time + Delete */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-sm">
+                        <span className="font-semibold text-white">
+                          {item.username || "Demo user"}
+                        </span>
+                        <span className="text-neutral-500 text-xs">
+                          {timeAgo(item.createdAt)}
+                        </span>
+                      </div>
+                      <TrashIcon
+                        onClick={() => deleteComment(item._id)}
+                        className="h-4 w-4 text-neutral-500 hover:text-red-500 cursor-pointer"
+                      />
                     </div>
 
-                    <p className="text-sm text-neutral-300">{item.comment}</p>
+                    {/* Comment Text */}
+                    <p className="text-sm text-neutral-300 mt-1 leading-relaxed">
+                      {item.comment}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -147,7 +171,7 @@ export default function ShowPost({
           <input
             required
             ref={inputRef}
-            value={comment.trim()}
+            value={comment}
             onChange={(e) => setComment(e.target.value)}
             type="text"
             placeholder="Add a comment..."

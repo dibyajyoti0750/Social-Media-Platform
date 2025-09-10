@@ -6,7 +6,7 @@ import Post from "./models/post.js";
 import wrapAsync from "./utils/wrapAsync.js";
 import { ExpressError } from "./utils/ExpressError.js";
 import { commentSchema, postSchema, updatePostSchema } from "./schema.js";
-import CommentModel from "./models/comment.js";
+import CommentCollection from "./models/comment.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -93,7 +93,7 @@ app.post(
       throw new ExpressError(404, "Post not found");
     }
 
-    const newComment = new CommentModel(req.body);
+    const newComment = new CommentCollection(req.body);
     const savedComment = await newComment.save();
 
     post.comments.push(savedComment._id);
@@ -102,6 +102,31 @@ app.post(
     res.status(201).json({
       success: true,
       message: "New comment added",
+    });
+  })
+);
+
+// Destroy comment route
+app.delete(
+  "/post/:id/comments/:commentId",
+  wrapAsync(async (req, res) => {
+    const { id, commentId } = req.params;
+
+    const post = await Post.findById(id);
+    if (!post) throw new ExpressError(404, "Post not found");
+
+    const comment = await CommentCollection.findById(commentId);
+    if (!comment) throw new ExpressError(404, "Comment not found");
+
+    // Remove the comment reference from the Post document
+    await Post.findByIdAndUpdate(id, { $pull: { comments: commentId } });
+
+    // Delete the actual Comment document
+    await CommentCollection.findByIdAndDelete(commentId);
+
+    res.status(200).json({
+      success: true,
+      message: "Comment deleted successfully",
     });
   })
 );
