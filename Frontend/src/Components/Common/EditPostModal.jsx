@@ -119,7 +119,7 @@ export default function EditPostModal({
                 onClick={() => setNewImage("")}
                 className="absolute top-2 right-2 flex items-center justify-center rounded-full bg-white w-6 h-6 cursor-pointer"
               >
-                <MinusCircleIcon class="h-5 w-5 text-red-600" />
+                <MinusCircleIcon className="h-5 w-5 text-red-600" />
               </button>
 
               {/* Image preview */}

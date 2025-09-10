@@ -36,6 +36,7 @@ export const MyProvider = ({ children }) => {
 
   const contextValue = {
     posts,
+    fetchAllPosts,
     setPosts,
     addPost,
     updatePost,

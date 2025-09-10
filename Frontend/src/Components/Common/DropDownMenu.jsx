@@ -2,11 +2,18 @@ import { useContext, useEffect, useRef, useState } from "react";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import EditPostModal from "./EditPostModal";
 import { MyContext } from "../../context/MyContext";
+import { useNavigate } from "react-router-dom";
 
-export default function DropDownMenu({ postId, dropDownOpen, closeDropDown }) {
+export default function DropDownMenu({
+  postId,
+  dropDownOpen,
+  closeDropDown,
+  isOnShowPage,
+}) {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [openEditPost, setOpenEditPost] = useState(false);
   const { removePost } = useContext(MyContext);
+  const navigate = useNavigate();
 
   const dropDownRef = useRef(null);
 
@@ -43,11 +50,17 @@ export default function DropDownMenu({ postId, dropDownOpen, closeDropDown }) {
       const data = await response.json();
 
       if (data.success) {
-        removePost(data.data._id);
         setConfirmDelete(false);
         closeDropDown();
+
+        if (isOnShowPage) {
+          // redirect
+          navigate("/");
+        } else {
+          // or just remove from the list
+          removePost(data.data._id);
+        }
       } else {
-        // TODO: show error to user
         console.log(data.message);
       }
     } catch (err) {

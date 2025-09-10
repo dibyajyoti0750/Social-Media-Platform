@@ -2,6 +2,7 @@ import { useState } from "react";
 import { assets } from "../../assets/assets.js";
 import { timeAgo } from "../../utils.js";
 import DropDownMenu from "../Common/DropDownMenu.jsx";
+import { useLocation } from "react-router-dom";
 
 export default function PostHeader({
   postId,
@@ -10,6 +11,8 @@ export default function PostHeader({
   createdAt,
 }) {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const location = useLocation();
+  const isOnShowPage = location.pathname === `/post/${postId}`;
 
   return (
     <div className="relative flex justify-between items-center text-gray-100 pt-4 px-4">
@@ -44,6 +47,7 @@ export default function PostHeader({
         <DropDownMenu
           postId={postId}
           dropDownOpen={isDropDownOpen}
+          isOnShowPage={isOnShowPage}
           closeDropDown={() => setIsDropDownOpen(false)}
         />
       )}
