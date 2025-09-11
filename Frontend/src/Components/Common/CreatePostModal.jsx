@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { assets } from "../../assets/assets";
 import { MyContext } from "../../context/MyContext";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function CreatePostModal({
   onPostModalClose,
@@ -39,8 +40,11 @@ export default function CreatePostModal({
       setImage("");
       addPost(data.data);
       onPostModalClose();
+
+      toast.success(data.message);
     } catch (err) {
       console.error(err);
+      toast.error(err.response.data.error);
     }
   };
 

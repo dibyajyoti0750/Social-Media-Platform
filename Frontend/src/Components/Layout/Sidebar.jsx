@@ -7,10 +7,9 @@ import {
   BellIcon,
   EnvelopeIcon,
   UserIcon,
-  PencilIcon,
 } from "@heroicons/react/24/outline";
 import { MyContext } from "../../context/MyContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const sidebarLinksOutline = [
   { icon: HomeIcon, label: "Home" },
@@ -23,11 +22,15 @@ const sidebarLinksOutline = [
 
 export default function Sidebar() {
   const { setIsPostModalOpen } = useContext(MyContext);
+  const location = useLocation();
+  const isOnHomePage = location.pathname === "/";
 
   return (
     <div
-      className="flex flex-col items-center gap-4 h-dvh overflow-y-auto
-      px-6 py-4 text-lg font-medium text-gray-300 border-neutral-700"
+      className={`flex flex-col items-center gap-4 h-dvh overflow-y-auto
+      px-6 py-4 text-lg font-medium text-gray-300 ${
+        !isOnHomePage && " border-e border-neutral-800"
+      }`}
     >
       <Link to={"/"} className="w-full ms-0 lg:ms-[-1.5rem]">
         <img src={assets.logo} alt="Logo" className="h-16 w-16" />

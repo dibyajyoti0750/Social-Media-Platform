@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="w-full flex flex-col gap-2 bg-black text-white border-t border-neutral-700">
+    <footer className="w-full flex flex-col gap-2 bg-black text-white border-t border-neutral-800">
       <div className="flex justify-center gap-6 py-4 text-sm text-neutral-500">
         {["Home", "About", "Contact", "Option3", "Option4", "Option5"].map(
           (item, idx) => (

@@ -2,8 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import { MyContext } from "../../context/MyContext";
 import { MinusCircleIcon } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function EditPostModal({
   postId,
@@ -47,8 +48,10 @@ export default function EditPostModal({
       updatePost(data.data);
       closeEditModal();
       closeDropDown();
+      toast.success(data.message);
     } catch (err) {
       console.log(err);
+      toast.error(err.response.data.error);
     }
   };
 

@@ -4,6 +4,7 @@ import EditPostModal from "./EditPostModal";
 import { MyContext } from "../../context/MyContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function DropDownMenu({
   postId,
@@ -47,6 +48,7 @@ export default function DropDownMenu({
       if (data.success) {
         setConfirmDelete(false);
         closeDropDown();
+        toast.success(data.message);
 
         if (isOnShowPage) {
           // redirect
@@ -60,6 +62,7 @@ export default function DropDownMenu({
       }
     } catch (err) {
       console.log(err);
+      toast.error(err.response.data.error);
     }
   };
 
