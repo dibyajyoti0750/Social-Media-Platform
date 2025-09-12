@@ -9,7 +9,7 @@ export const MyProvider = ({ children }) => {
 
   const fetchAllPosts = async () => {
     try {
-      const { data } = await axios.get(API);
+      const { data } = await axios.get(`${API}/post`);
       setPosts(data.data);
     } catch (err) {
       console.log(err);

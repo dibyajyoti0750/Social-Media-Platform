@@ -16,8 +16,11 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-app.use("/post", postRoutes);
-app.use("/post/:id/comments", commentRoutes);
+app.get("/", (req, res) =>
+  res.json({ success: true, message: "API is running" })
+);
+app.use("/api/post", postRoutes);
+app.use("/api/post/:id/comments", commentRoutes);
 
 // 404 handler
 app.all(/.*/, (req, res, next) => {
