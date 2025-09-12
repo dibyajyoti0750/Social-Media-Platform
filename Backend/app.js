@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import session from "express-session";
 
 // Utils & Routes
 import { ExpressError } from "./utils/ExpressError.js";
@@ -14,6 +15,18 @@ const port = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use(
+  session({
+    secret: "mySecretCode",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+    },
+  })
+);
 
 // Routes
 app.get("/", (req, res) =>
