@@ -10,6 +10,7 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/solid";
 import { timeAgo } from "../../utils";
+import { toast } from "react-toastify";
 
 export default function ShowPost({
   postId,
@@ -54,8 +55,10 @@ export default function ShowPost({
       );
 
       refreshPost();
+      toast.success(data.message);
     } catch (err) {
       console.log(err);
+      toast.error(err.message);
     }
   };
 
